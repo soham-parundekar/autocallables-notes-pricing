@@ -1,0 +1,467 @@
+# Term sheets for the six notes priced in the week of 5-9 October 2026.
+#
+# Every scalar here was read off the final 424B2 pricing supplement by hand and
+# cross-checked against the preserved filing under references/sec_filings/.
+# tests/test_term_sheets_match_filings.py re-reads those filings and asserts the
+# numbers below still match, so this file cannot silently drift from its source.
+#
+# The observation and payment schedules were pulled from the filings
+# programmatically and their lengths asserted against the stated tenor and
+# coupon frequency. Transcribing 60 business-day-adjusted dates by hand invites
+# exactly the kind of error that is impossible to spot later.
+#
+# Initial levels agree across four independent supplements where they overlap
+# (NDX 31,160.08 and RTY 2,793.204 appear in the JPMorgan, Goldman and both
+# Morgan Stanley notes priced 7 October), which is the cleanest available check
+# that the extraction is right.
+#
+# A note on barrier vocabulary: issuers use different words for the same two
+# levels. JPMorgan says "Interest Barrier" and "Trigger Value", Morgan Stanley
+# says "coupon barrier level" and "downside threshold level", Goldman says
+# "coupon trigger level" and "trigger buffer level", BofA says "Coupon Barrier"
+# and a knock-in. They are normalised here to coupon.barrier and
+# downside.trigger, both expressed as a fraction of each underlying's own
+# initial level.
+
+surface:
+  # The only free option-chain snapshot available is the 9 October close; there
+  # is no free source of historical chains. Five of the six notes priced on
+  # 7 October, so the surface sits two trading days after the pricing date.
+  # src/analysis/timing_risk.py measures what that gap is worth.
+  snapshot_date: 2026-10-09
+  snapshot_source: Cboe delayed-quote feed
+
+notes:
+  - id: N1
+    cusip: "46661PD38"
+    issuer: "JPMorgan Chase Financial Company LLC"
+    guarantor: "JPMorgan Chase & Co."
+    product_name: "Callable Contingent Interest Notes"
+    sec_accession: "0001918704-26-031125"
+    filing: references/sec_filings/2026_JPMorganChaseFinancial_424B2_CallableContingentInterest_NDX-RTY-SPX_2031.htm
+    denomination: 1000.0
+    aggregate_principal: 3270000
+    pricing_date: 2026-10-07
+    settlement_date: 2026-10-13
+    maturity_date: 2031-10-10
+    disclosed_estimated_value: 938.9
+    estimated_value_precision: 0.01   # Goldman discloses whole dollars; the others report cents
+    selling_commission: 41.25
+    underlyings:
+      - ticker: NDX
+        name: "Nasdaq-100 Index"
+        bloomberg: NDX
+        initial_level: 31160.08
+        kind: index
+        return_type: price
+      - ticker: RUT
+        name: "Russell 2000 Index"
+        bloomberg: RTY
+        initial_level: 2793.204
+        kind: index
+        return_type: price
+      - ticker: SPX
+        name: "S&P 500 Index"
+        bloomberg: SPX
+        initial_level: 7801.77
+        kind: index
+        return_type: price
+    coupon:
+      annual_rate: 0.083
+      frequency: monthly
+      amount_per_period: 6.9167
+      barrier: 0.7
+      memory: false
+    call:
+      style: issuer_discretionary
+      first_eligible_index: 11
+      last_eligible_index: 58
+      source_note: >-
+        Filing: redeemable "on any of the Interest Payment Dates (other than the first through eleventh and final)". Payment index 11 is 13 October 2027, which the filing names as the earliest early-redemption date.
+    downside:
+      trigger: 0.65
+      observation: european
+      payoff: worst_return
+    schedule:
+      observation: [
+        "2026-11-09", "2026-12-07", "2027-01-07", "2027-02-08", "2027-03-08", "2027-04-07",
+        "2027-05-07", "2027-06-07", "2027-07-07", "2027-08-09", "2027-09-07", "2027-10-07",
+        "2027-11-08", "2027-12-07", "2028-01-07", "2028-02-07", "2028-03-07", "2028-04-07",
+        "2028-05-08", "2028-06-07", "2028-07-07", "2028-08-07", "2028-09-07", "2028-10-09",
+        "2028-11-07", "2028-12-07", "2029-01-08", "2029-02-07", "2029-03-07", "2029-04-09",
+        "2029-05-07", "2029-06-07", "2029-07-09", "2029-08-07", "2029-09-07", "2029-10-08",
+        "2029-11-07", "2029-12-07", "2030-01-07", "2030-02-07", "2030-03-07", "2030-04-08",
+        "2030-05-07", "2030-06-07", "2030-07-08", "2030-08-07", "2030-09-09", "2030-10-07",
+        "2030-11-07", "2030-12-09", "2031-01-07", "2031-02-07", "2031-03-07", "2031-04-07",
+        "2031-05-07", "2031-06-09", "2031-07-07", "2031-08-07", "2031-09-08", "2031-10-07"
+      ]
+      payment: [
+        "2026-11-13", "2026-12-10", "2027-01-12", "2027-02-11", "2027-03-11", "2027-04-12",
+        "2027-05-12", "2027-06-10", "2027-07-12", "2027-08-12", "2027-09-10", "2027-10-13",
+        "2027-11-12", "2027-12-10", "2028-01-12", "2028-02-10", "2028-03-10", "2028-04-12",
+        "2028-05-11", "2028-06-12", "2028-07-12", "2028-08-10", "2028-09-12", "2028-10-12",
+        "2028-11-10", "2028-12-12", "2029-01-11", "2029-02-12", "2029-03-12", "2029-04-12",
+        "2029-05-10", "2029-06-12", "2029-07-12", "2029-08-10", "2029-09-12", "2029-10-11",
+        "2029-11-13", "2029-12-12", "2030-01-10", "2030-02-12", "2030-03-12", "2030-04-11",
+        "2030-05-10", "2030-06-12", "2030-07-11", "2030-08-12", "2030-09-12", "2030-10-10",
+        "2030-11-13", "2030-12-12", "2031-01-10", "2031-02-12", "2031-03-12", "2031-04-10",
+        "2031-05-12", "2031-06-12", "2031-07-10", "2031-08-12", "2031-09-11", "2031-10-10"
+      ]
+
+  - id: N2
+    cusip: "61781LWY2"
+    issuer: "Morgan Stanley Finance LLC"
+    guarantor: "Morgan Stanley"
+    product_name: "Callable Contingent Income Securities"
+    sec_accession: "0001839882-26-050390"
+    filing: references/sec_filings/2026_MorganStanleyFinance_424B2_CallableContingentIncome_INDU-NDX-RTY_2031.htm
+    denomination: 1000.0
+    aggregate_principal: 1353000
+    pricing_date: 2026-10-07
+    settlement_date: 2026-10-13
+    maturity_date: 2031-10-10
+    disclosed_estimated_value: 943.1
+    estimated_value_precision: 0.01   # Goldman discloses whole dollars; the others report cents
+    selling_commission: 36.25
+    underlyings:
+      - ticker: DJX
+        name: "Dow Jones Industrial Average"
+        bloomberg: INDU
+        initial_level: 51179.87
+        kind: index
+        return_type: price
+      - ticker: NDX
+        name: "Nasdaq-100 Index"
+        bloomberg: NDX
+        initial_level: 31160.08
+        kind: index
+        return_type: price
+      - ticker: RUT
+        name: "Russell 2000 Index"
+        bloomberg: RTY
+        initial_level: 2793.204
+        kind: index
+        return_type: price
+    coupon:
+      annual_rate: 0.083
+      frequency: monthly
+      amount_per_period: null
+      barrier: 0.7
+      memory: false
+    call:
+      style: rational_exercise
+      first_eligible_index: null
+      last_eligible_index: null
+      source_note: >-
+        Filing: redeemed "if and only if the output of a risk neutral valuation model ... indicates that redeeming on such date is economically rational for us", and "will not automatically occur based on the performance of the underliers". Priced by optimal stopping on the 48 stated redemption dates.
+    downside:
+      trigger: 0.65
+      observation: european
+      payoff: worst_return
+    schedule:
+      observation: [
+        "2026-11-09", "2026-12-07", "2027-01-07", "2027-02-08", "2027-03-08", "2027-04-07",
+        "2027-05-07", "2027-06-07", "2027-07-07", "2027-08-09", "2027-09-07", "2027-10-08",
+        "2027-11-08", "2027-12-07", "2028-01-07", "2028-02-07", "2028-03-07", "2028-04-07",
+        "2028-05-08", "2028-06-07", "2028-07-07", "2028-08-07", "2028-09-07", "2028-10-09",
+        "2028-11-07", "2028-12-07", "2029-01-08", "2029-02-07", "2029-03-07", "2029-04-09",
+        "2029-05-07", "2029-06-07", "2029-07-09", "2029-08-07", "2029-09-07", "2029-10-08",
+        "2029-11-07", "2029-12-07", "2030-01-07", "2030-02-07", "2030-03-07", "2030-04-08",
+        "2030-05-07", "2030-06-07", "2030-07-08", "2030-08-07", "2030-09-09", "2030-10-07",
+        "2030-11-07", "2030-12-09", "2031-01-07", "2031-02-07", "2031-03-07", "2031-04-07",
+        "2031-05-07", "2031-06-09", "2031-07-07", "2031-08-07", "2031-09-08", "2031-10-07"
+      ]
+      payment: [
+        "2026-11-13", "2026-12-10", "2027-01-12", "2027-02-11", "2027-03-11", "2027-04-12",
+        "2027-05-12", "2027-06-10", "2027-07-12", "2027-08-12", "2027-09-10", "2027-10-14",
+        "2027-11-12", "2027-12-10", "2028-01-12", "2028-02-10", "2028-03-10", "2028-04-12",
+        "2028-05-11", "2028-06-12", "2028-07-12", "2028-08-10", "2028-09-12", "2028-10-12",
+        "2028-11-10", "2028-12-12", "2029-01-11", "2029-02-12", "2029-03-12", "2029-04-12",
+        "2029-05-10", "2029-06-12", "2029-07-12", "2029-08-10", "2029-09-12", "2029-10-11",
+        "2029-11-13", "2029-12-12", "2030-01-10", "2030-02-12", "2030-03-12", "2030-04-11",
+        "2030-05-10", "2030-06-12", "2030-07-11", "2030-08-12", "2030-09-12", "2030-10-10",
+        "2030-11-13", "2030-12-12", "2031-01-10", "2031-02-12", "2031-03-12", "2031-04-10",
+        "2031-05-12", "2031-06-12", "2031-07-10", "2031-08-12", "2031-09-11", "2031-10-10"
+      ]
+      redemption: [
+        "2027-10-14", "2027-11-12", "2027-12-10", "2028-01-12", "2028-02-10", "2028-03-10",
+        "2028-04-12", "2028-05-11", "2028-06-12", "2028-07-12", "2028-08-10", "2028-09-12",
+        "2028-10-12", "2028-11-10", "2028-12-12", "2029-01-11", "2029-02-12", "2029-03-12",
+        "2029-04-12", "2029-05-10", "2029-06-12", "2029-07-12", "2029-08-10", "2029-09-12",
+        "2029-10-11", "2029-11-13", "2029-12-12", "2030-01-10", "2030-02-12", "2030-03-12",
+        "2030-04-11", "2030-05-10", "2030-06-12", "2030-07-11", "2030-08-12", "2030-09-12",
+        "2030-10-10", "2030-11-13", "2030-12-12", "2031-01-10", "2031-02-12", "2031-03-12",
+        "2031-04-10", "2031-05-12", "2031-06-12", "2031-07-10", "2031-08-12", "2031-09-11"
+      ]
+
+  - id: N3
+    cusip: "61781LM23"
+    issuer: "Morgan Stanley Finance LLC"
+    guarantor: "Morgan Stanley"
+    product_name: "Callable Contingent Income Securities"
+    sec_accession: "0001839882-26-050393"
+    filing: references/sec_filings/2026_MorganStanleyFinance_424B2_CallableContingentIncome_NDX-RTY-SPX_2029.htm
+    denomination: 1000.0
+    aggregate_principal: 250000
+    pricing_date: 2026-10-07
+    settlement_date: 2026-10-13
+    maturity_date: 2029-10-11
+    disclosed_estimated_value: 983.4
+    estimated_value_precision: 0.01   # Goldman discloses whole dollars; the others report cents
+    selling_commission: 2.5
+    underlyings:
+      - ticker: NDX
+        name: "Nasdaq-100 Index"
+        bloomberg: NDX
+        initial_level: 31160.08
+        kind: index
+        return_type: price
+      - ticker: RUT
+        name: "Russell 2000 Index"
+        bloomberg: RTY
+        initial_level: 2793.204
+        kind: index
+        return_type: price
+      - ticker: SPX
+        name: "S&P 500 Index"
+        bloomberg: SPX
+        initial_level: 7801.77
+        kind: index
+        return_type: price
+    coupon:
+      annual_rate: 0.0975
+      frequency: monthly
+      amount_per_period: null
+      barrier: 0.7
+      memory: false
+    call:
+      style: rational_exercise
+      first_eligible_index: null
+      last_eligible_index: null
+      source_note: >-
+        Same rational-exercise wording as N2, on the 30 stated redemption dates from 12 April 2027. Sold only into fee-based advisory accounts, which is why the commission is $2.50 rather than the $36.25 on N2.
+    downside:
+      trigger: 0.6
+      observation: european
+      payoff: worst_return
+    schedule:
+      observation: [
+        "2026-11-09", "2026-12-07", "2027-01-07", "2027-02-08", "2027-03-08", "2027-04-07",
+        "2027-05-07", "2027-06-07", "2027-07-07", "2027-08-09", "2027-09-07", "2027-10-07",
+        "2027-11-08", "2027-12-07", "2028-01-07", "2028-02-07", "2028-03-07", "2028-04-07",
+        "2028-05-08", "2028-06-07", "2028-07-07", "2028-08-07", "2028-09-07", "2028-10-09",
+        "2028-11-07", "2028-12-07", "2029-01-08", "2029-02-07", "2029-03-07", "2029-04-09",
+        "2029-05-07", "2029-06-07", "2029-07-09", "2029-08-07", "2029-09-07", "2029-10-08"
+      ]
+      payment: [
+        "2026-11-13", "2026-12-10", "2027-01-12", "2027-02-11", "2027-03-11", "2027-04-12",
+        "2027-05-12", "2027-06-10", "2027-07-12", "2027-08-12", "2027-09-10", "2027-10-13",
+        "2027-11-12", "2027-12-10", "2028-01-12", "2028-02-10", "2028-03-10", "2028-04-12",
+        "2028-05-11", "2028-06-12", "2028-07-12", "2028-08-10", "2028-09-12", "2028-10-12",
+        "2028-11-10", "2028-12-12", "2029-01-11", "2029-02-12", "2029-03-12", "2029-04-12",
+        "2029-05-10", "2029-06-12", "2029-07-12", "2029-08-10", "2029-09-12", "2029-10-11"
+      ]
+      redemption: [
+        "2027-04-12", "2027-05-12", "2027-06-10", "2027-07-12", "2027-08-12", "2027-09-10",
+        "2027-10-13", "2027-11-12", "2027-12-10", "2028-01-12", "2028-02-10", "2028-03-10",
+        "2028-04-12", "2028-05-11", "2028-06-12", "2028-07-12", "2028-08-10", "2028-09-12",
+        "2028-10-12", "2028-11-10", "2028-12-12", "2029-01-11", "2029-02-12", "2029-03-12",
+        "2029-04-12", "2029-05-10", "2029-06-12", "2029-07-12", "2029-08-10", "2029-09-12"
+      ]
+
+  - id: N4
+    cusip: "40058M7F9"
+    issuer: "GS Finance Corp."
+    guarantor: "The Goldman Sachs Group, Inc."
+    product_name: "Callable Contingent Coupon Index-Linked Notes"
+    sec_accession: "0001193125-26-419171"
+    filing: references/sec_filings/2026_GSFinanceCorp_424B2_CallableContingentCoupon_NDX-RTY-SPX_2028.htm
+    denomination: 1000.0
+    aggregate_principal: 2691000
+    pricing_date: 2026-10-07
+    settlement_date: 2026-10-13
+    maturity_date: 2028-09-12
+    disclosed_estimated_value: 999.0
+    estimated_value_precision: 1.0   # Goldman discloses whole dollars; the others report cents
+    # Goldman quotes this as "0.525% of the face amount" rather than in
+    # dollars; 5.25 is that percentage at the $1,000 denomination.
+    selling_commission: 5.25
+    underlyings:
+      - ticker: NDX
+        name: "Nasdaq-100 Index"
+        bloomberg: NDX
+        initial_level: 31160.08
+        kind: index
+        return_type: price
+      - ticker: RUT
+        name: "Russell 2000 Index"
+        bloomberg: RTY
+        initial_level: 2793.204
+        kind: index
+        return_type: price
+      - ticker: SPX
+        name: "S&P 500 Index"
+        bloomberg: SPX
+        initial_level: 7801.77
+        kind: index
+        return_type: price
+    coupon:
+      annual_rate: 0.1015
+      frequency: monthly
+      amount_per_period: 8.459
+      barrier: 0.65
+      memory: false
+    call:
+      style: issuer_discretionary
+      first_eligible_index: 2
+      last_eligible_index: 21
+      source_note: >-
+        Filing: redeemable "at our option on any coupon payment date commencing in January 2027", and only "prior to the stated maturity date". Payment index 2 is 12 January 2027; index 22 is the maturity payment and is excluded.
+    downside:
+      trigger: 0.6
+      observation: european
+      payoff: worst_return
+    schedule:
+      observation: [
+        "2026-11-09", "2026-12-07", "2027-01-07", "2027-02-08", "2027-03-08", "2027-04-07",
+        "2027-05-07", "2027-06-07", "2027-07-07", "2027-08-09", "2027-09-07", "2027-10-07",
+        "2027-11-08", "2027-12-07", "2028-01-07", "2028-02-07", "2028-03-07", "2028-04-07",
+        "2028-05-08", "2028-06-07", "2028-07-07", "2028-08-07", "2028-09-07"
+      ]
+      payment: [
+        "2026-11-13", "2026-12-10", "2027-01-12", "2027-02-11", "2027-03-11", "2027-04-12",
+        "2027-05-12", "2027-06-10", "2027-07-12", "2027-08-12", "2027-09-10", "2027-10-13",
+        "2027-11-12", "2027-12-10", "2028-01-12", "2028-02-10", "2028-03-10", "2028-04-12",
+        "2028-05-11", "2028-06-12", "2028-07-12", "2028-08-10", "2028-09-12"
+      ]
+
+  - id: N5
+    cusip: "09712CWN9"
+    issuer: "BofA Finance LLC"
+    guarantor: "Bank of America Corporation"
+    product_name: "Contingent Income Auto-Callable Yield Notes"
+    sec_accession: "0001918704-26-030916"
+    filing: references/sec_filings/2026_BofAFinance_424B2_ContingentIncomeAutoCallable_NDX-RTY-SPX_2028.htm
+    denomination: 1000.0
+    aggregate_principal: 1549000
+    pricing_date: 2026-10-05
+    settlement_date: 2026-10-08
+    maturity_date: 2028-07-10
+    disclosed_estimated_value: 972.1
+    estimated_value_precision: 0.01   # Goldman discloses whole dollars; the others report cents
+    selling_commission: 25.0
+    underlyings:
+      - ticker: NDX
+        name: "Nasdaq-100 Index"
+        bloomberg: NDX
+        initial_level: 31076.44
+        kind: index
+        return_type: price
+      - ticker: RUT
+        name: "Russell 2000 Index"
+        bloomberg: RTY
+        initial_level: 2847.136
+        kind: index
+        return_type: price
+      - ticker: SPX
+        name: "S&P 500 Index"
+        bloomberg: SPX
+        initial_level: 7773.95
+        kind: index
+        return_type: price
+    coupon:
+      annual_rate: 0.0625
+      frequency: quarterly
+      amount_per_period: 15.625
+      barrier: 0.75
+      memory: false
+    call:
+      style: automatic
+      level: 0.9325
+      first_eligible_index: 0
+      last_eligible_index: 5
+      source_note: >-
+        The only genuinely auto-callable note in the sample: redemption is mechanical when every underlying closes at or above 93.25% of its starting value on one of the six call observation dates. Note the trigger is 93.25%, not the 100% that is often assumed.
+    downside:
+      trigger: 0.7
+      observation: american
+      payoff: worst_return_if_below_initial
+      strike: 1.0
+      knock_in_window: ["2026-10-06", "2028-07-05"]
+    schedule:
+      observation: [
+        "2027-01-05", "2027-04-05", "2027-07-06", "2027-10-05", "2028-01-05", "2028-04-05",
+        "2028-07-05"
+      ]
+      payment: [
+        "2027-01-08", "2027-04-08", "2027-07-09", "2027-10-08", "2028-01-10", "2028-04-10",
+        "2028-07-10"
+      ]
+      call_observation: [
+        "2027-01-05", "2027-04-05", "2027-07-06", "2027-10-05", "2028-01-05", "2028-04-05"
+      ]
+
+  - id: N6
+    cusip: "46661PL96"
+    issuer: "JPMorgan Chase Financial Company LLC"
+    guarantor: "JPMorgan Chase & Co."
+    product_name: "Callable Contingent Interest Notes"
+    sec_accession: "0001918704-26-031101"
+    filing: references/sec_filings/2026_JPMorganChaseFinancial_424B2_CallableContingentInterest_RTY-SPX-SMH_2028.htm
+    denomination: 1000.0
+    aggregate_principal: 918000
+    pricing_date: 2026-10-07
+    settlement_date: 2026-10-13
+    maturity_date: 2028-09-12
+    disclosed_estimated_value: 967.3
+    estimated_value_precision: 0.01   # Goldman discloses whole dollars; the others report cents
+    selling_commission: 22.25
+    underlyings:
+      - ticker: RUT
+        name: "Russell 2000 Index"
+        bloomberg: RTY
+        initial_level: 2793.204
+        kind: index
+        return_type: price
+      - ticker: SPX
+        name: "S&P 500 Index"
+        bloomberg: SPX
+        initial_level: 7801.77
+        kind: index
+        return_type: price
+      - ticker: SMH
+        name: "VanEck Semiconductor ETF"
+        bloomberg: SMH
+        initial_level: 625.03
+        kind: etf
+        return_type: price
+    coupon:
+      annual_rate: 0.124
+      frequency: monthly
+      amount_per_period: 10.3333
+      barrier: 0.65
+      memory: false
+    call:
+      style: issuer_discretionary
+      first_eligible_index: 2
+      last_eligible_index: 21
+      source_note: >-
+        Filing: redeemable "on any of the Interest Payment Dates (other than the first, second and final)".
+    downside:
+      trigger: 0.6
+      observation: european
+      payoff: worst_return
+    schedule:
+      observation: [
+        "2026-11-09", "2026-12-07", "2027-01-07", "2027-02-08", "2027-03-08", "2027-04-07",
+        "2027-05-07", "2027-06-07", "2027-07-07", "2027-08-09", "2027-09-07", "2027-10-07",
+        "2027-11-08", "2027-12-07", "2028-01-07", "2028-02-07", "2028-03-07", "2028-04-07",
+        "2028-05-08", "2028-06-07", "2028-07-07", "2028-08-07", "2028-09-07"
+      ]
+      payment: [
+        "2026-11-13", "2026-12-10", "2027-01-12", "2027-02-11", "2027-03-11", "2027-04-12",
+        "2027-05-12", "2027-06-10", "2027-07-12", "2027-08-12", "2027-09-10", "2027-10-13",
+        "2027-11-12", "2027-12-10", "2028-01-12", "2028-02-10", "2028-03-10", "2028-04-12",
+        "2028-05-11", "2028-06-12", "2028-07-12", "2028-08-10", "2028-09-12"
+      ]
+

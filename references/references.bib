@@ -1,0 +1,215 @@
+% References for the autocallable note pricing project.
+%
+% Only entries whose metadata was read off the source are complete. Where a
+% field could not be confirmed it is omitted rather than guessed, and a note
+% records what is unverified. The SEC filings are included as @misc with their
+% accession numbers, since those are the stable identifiers for EDGAR records.
+
+@article{gatheral2013arbitragefree,
+  author  = {Gatheral, Jim and Jacquier, Antoine},
+  title   = {Arbitrage-free {SVI} volatility surfaces},
+  year    = {2013},
+  journal = {arXiv preprint},
+  eprint  = {1204.0646},
+  version = {v4},
+  archivePrefix = {arXiv},
+  primaryClass  = {q-fin.PR},
+  url     = {https://arxiv.org/abs/1204.0646},
+  urldate = {2026-10-11},
+  note    = {Later published in Quantitative Finance (2014); volume and pages
+             not confirmed from the arXiv record and therefore omitted}
+}
+
+@article{higham2002nearest,
+  author  = {Higham, Nicholas J.},
+  title   = {Computing the Nearest Correlation Matrix---A Problem from Finance},
+  journal = {IMA Journal of Numerical Analysis},
+  volume  = {22},
+  number  = {3},
+  pages   = {329--343},
+  year    = {2002},
+  doi     = {10.1093/imanum/22.3.329},
+  url     = {https://eprints.maths.manchester.ac.uk/232/},
+  urldate = {2026-10-19}
+}
+
+@article{longstaff2001valuing,
+  author  = {Longstaff, Francis A. and Schwartz, Eduardo S.},
+  title   = {Valuing American Options by Simulation: A Simple Least-Squares Approach},
+  journal = {The Review of Financial Studies},
+  volume  = {14},
+  number  = {1},
+  pages   = {113--147},
+  year    = {2001}
+}
+
+@book{gatheral2006volatility,
+  author    = {Gatheral, Jim},
+  title     = {The Volatility Surface: A Practitioner's Guide},
+  publisher = {Wiley},
+  year      = {2006},
+  note      = {Source for Dupire's equation in log-moneyness against total
+               implied variance, the form implemented in src/vol/local_vol.py}
+}
+
+@article{dupire1994pricing,
+  author  = {Dupire, Bruno},
+  title   = {Pricing with a Smile},
+  journal = {Risk},
+  volume  = {7},
+  number  = {1},
+  year    = {1994},
+  note    = {Page range not verified against the original}
+}
+
+@article{jaeckel2015rational,
+  author  = {J{\"a}ckel, Peter},
+  title   = {Let's Be Rational},
+  journal = {Wilmott Magazine},
+  year    = {2015},
+  note    = {Implemented in the py\_lets\_be\_rational package used here}
+}
+
+@book{glasserman2003monte,
+  author    = {Glasserman, Paul},
+  title     = {Monte Carlo Methods in Financial Engineering},
+  publisher = {Springer},
+  year      = {2003}
+}
+
+@article{martini2020noarbitrage,
+  author  = {Martini, Claude and Mingone, Arianna},
+  title   = {No arbitrage {SVI}},
+  year    = {2020},
+  journal = {arXiv preprint},
+  eprint  = {2005.03340},
+  archivePrefix = {arXiv},
+  url     = {https://arxiv.org/pdf/2005.03340},
+  urldate = {2026-10-19},
+  note    = {Used for the quasi-explicit calibration reduction and as the
+             verifiable record that the 2009 whitepaper "Quasi-explicit
+             calibration of Gatheral's SVI" originated it; the common
+             attribution of that whitepaper to Zeliade Systems could not be
+             confirmed from a primary source}
+}
+
+@misc{jpm2031note,
+  author       = {{JPMorgan Chase Financial Company LLC}},
+  title        = {Callable Contingent Interest Notes Linked to the Least
+                  Performing of the Nasdaq-100 Index, the Russell 2000 Index
+                  and the S\&P 500 Index due October 10, 2031},
+  howpublished = {SEC Form 424B2, accession 0001918704-26-031125},
+  note         = {CUSIP 46661PD38; priced 2026-10-07; disclosed estimated value
+                  \$938.90 per \$1,000},
+  year         = {2026},
+  urldate      = {2026-10-11}
+}
+
+@misc{ms2031note,
+  author       = {{Morgan Stanley Finance LLC}},
+  title        = {Callable Contingent Income Securities due October 10, 2031
+                  Based on the Worst Performing of the Dow Jones Industrial
+                  Average, the Nasdaq-100 Index and the Russell 2000 Index},
+  howpublished = {SEC Form 424B2, accession 0001839882-26-050390},
+  note         = {CUSIP 61781LWY2; priced 2026-10-07; disclosed estimated value
+                  \$943.10 per \$1,000; states redemption occurs if and only if
+                  a risk neutral valuation model indicates it is economically
+                  rational for the issuer},
+  year         = {2026},
+  urldate      = {2026-10-11}
+}
+
+@misc{ms2029note,
+  author       = {{Morgan Stanley Finance LLC}},
+  title        = {Callable Contingent Income Securities due October 11, 2029
+                  Based on the Worst Performing of the Nasdaq-100 Index, the
+                  Russell 2000 Index and the S\&P 500 Index},
+  howpublished = {SEC Form 424B2, accession 0001839882-26-050393},
+  note         = {CUSIP 61781LM23; priced 2026-10-07; disclosed estimated value
+                  \$983.40 per \$1,000},
+  year         = {2026},
+  urldate      = {2026-10-11}
+}
+
+@misc{gs2028note,
+  author       = {{GS Finance Corp.}},
+  title        = {Callable Contingent Coupon Index-Linked Notes due 2028},
+  howpublished = {SEC Form 424B2, accession 0001193125-26-419171},
+  note         = {CUSIP 40058M7F9; traded 2026-10-07; disclosed estimated value
+                  \$999 per \$1,000, quoted to whole dollars},
+  year         = {2026},
+  urldate      = {2026-10-11}
+}
+
+@misc{bofa2028note,
+  author       = {{BofA Finance LLC}},
+  title        = {Contingent Income Auto-Callable Yield Notes Linked to the
+                  Least Performing of the Nasdaq-100 Index, the Russell 2000
+                  Index and the S\&P 500 Index due July 10, 2028},
+  howpublished = {SEC Form 424B2, accession 0001918704-26-030916},
+  note         = {CUSIP 09712CWN9; priced 2026-10-05; disclosed estimated value
+                  \$972.10 per \$1,000; the only genuinely auto-callable note in
+                  the sample, with a 93.25\% trigger and an American knock-in},
+  year         = {2026},
+  urldate      = {2026-10-11}
+}
+
+@misc{jpm2028note,
+  author       = {{JPMorgan Chase Financial Company LLC}},
+  title        = {Callable Contingent Interest Notes Linked to the Least
+                  Performing of the Russell 2000 Index, the S\&P 500 Index and
+                  the VanEck Semiconductor ETF due September 12, 2028},
+  howpublished = {SEC Form 424B2, accession 0001918704-26-031101},
+  note         = {CUSIP 46661PL96; priced 2026-10-07; disclosed estimated value
+                  \$967.30 per \$1,000},
+  year         = {2026},
+  urldate      = {2026-10-11}
+}
+
+@misc{cboe_delayed_quotes,
+  author       = {{Cboe Global Markets}},
+  title        = {Delayed option quotes},
+  howpublished = {\url{https://cdn-api.cboe.com/api/global/delayed_quotes/options/}},
+  note         = {Snapshot of the 2026-10-09 session, captured 2026-10-11;
+                  105 symbols, SHA-256 manifests in
+                  data/raw/option_chains/2026-10-09/manifest.csv},
+  year         = {2026},
+  urldate      = {2026-10-11}
+}
+
+@misc{cboe_vol_indices,
+  author       = {{Cboe Global Markets}},
+  title        = {VIX, VXN and RVX daily price history},
+  howpublished = {\url{https://cdn.cboe.com/api/global/us_indices/daily_prices/}},
+  year         = {2026},
+  urldate      = {2026-10-11}
+}
+
+@misc{treasury_par_yields,
+  author       = {{US Department of the Treasury}},
+  title        = {Daily Treasury Par Yield Curve Rates, 2026},
+  howpublished = {\url{https://home.treasury.gov/resource-center/data-chart-center/interest-rates/}},
+  note         = {Public domain},
+  year         = {2026},
+  urldate      = {2026-10-11}
+}
+
+@misc{fred_indices,
+  author       = {{Federal Reserve Bank of St. Louis}},
+  title        = {FRED series SP500, NASDAQ100, DJIA, BAMLC0A3CA},
+  howpublished = {\url{https://fred.stlouisfed.org/}},
+  note         = {BAMLC0A3CA is the ICE BofA A-rated US corporate index
+                  option-adjusted spread},
+  year         = {2026},
+  urldate      = {2026-10-19}
+}
+
+@misc{sec_edgar,
+  author       = {{US Securities and Exchange Commission}},
+  title        = {EDGAR full-text search and submissions API},
+  howpublished = {\url{https://efts.sec.gov/LATEST/search-index},
+                  \url{https://data.sec.gov/submissions/}},
+  note         = {Public domain},
+  year         = {2026},
+  urldate      = {2026-10-11}
+}

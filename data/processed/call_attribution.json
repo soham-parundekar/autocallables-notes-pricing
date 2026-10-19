@@ -1,0 +1,77 @@
+{
+ "funding_spread_bp": [
+  69.0,
+  72.0
+ ],
+ "funding_spread_basis": "A-rated corporate OAS on each note's pricing date",
+ "notes": [
+  {
+   "note_id": "N1",
+   "applicable": true,
+   "funding_spread_bp": 69.0,
+   "value_no_call": 911.3190897691834,
+   "value_optimal": 893.4938297982694,
+   "call_value": 17.825259970913976,
+   "disclosed_estimated_value": 938.9,
+   "implied_call_fraction": -1.5472935752870478,
+   "residual_vs_full_call": 45.40617020173056,
+   "residual_vs_no_call": 27.580910230816585
+  },
+  {
+   "note_id": "N2",
+   "applicable": true,
+   "funding_spread_bp": 69.0,
+   "value_no_call": 890.2987573658149,
+   "value_optimal": 876.660809478727,
+   "call_value": 13.63794788708799,
+   "disclosed_estimated_value": 943.1,
+   "implied_call_fraction": -3.871641325464791,
+   "residual_vs_full_call": 66.43919052127308,
+   "residual_vs_no_call": 52.80124263418509
+  },
+  {
+   "note_id": "N3",
+   "applicable": true,
+   "funding_spread_bp": 69.0,
+   "value_no_call": 984.128664744629,
+   "value_optimal": 953.5481876164816,
+   "call_value": 30.580477128147322,
+   "disclosed_estimated_value": 983.4,
+   "implied_call_fraction": 0.023827775530627617,
+   "residual_vs_full_call": 29.851812383518336,
+   "residual_vs_no_call": -0.7286647446289862
+  },
+  {
+   "note_id": "N4",
+   "applicable": true,
+   "funding_spread_bp": 69.0,
+   "value_no_call": 1003.6962567726022,
+   "value_optimal": 974.5672796307184,
+   "call_value": 29.12897714188375,
+   "disclosed_estimated_value": 999.0,
+   "implied_call_fraction": 0.16122285206676726,
+   "residual_vs_full_call": 24.432720369281583,
+   "residual_vs_no_call": -4.696256772602169
+  },
+  {
+   "note_id": "N5",
+   "applicable": false,
+   "reason": "redemption is automatic and contractual; it benefits the holder",
+   "funding_spread_bp": 72.0,
+   "value_optimal": 957.6637237418154,
+   "disclosed_estimated_value": 972.1
+  },
+  {
+   "note_id": "N6",
+   "applicable": true,
+   "funding_spread_bp": 69.0,
+   "value_no_call": 975.5557814352962,
+   "value_optimal": 946.8297679772564,
+   "call_value": 28.7260134580398,
+   "disclosed_estimated_value": 967.3,
+   "implied_call_fraction": 0.2873973949554656,
+   "residual_vs_full_call": 20.470232022743517,
+   "residual_vs_no_call": -8.255781435296285
+  }
+ ]
+}

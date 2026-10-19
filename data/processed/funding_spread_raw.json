@@ -1,0 +1,182 @@
+[
+ {
+  "note_id": "N1",
+  "issuer": "JPMorgan Chase Financial Company LLC",
+  "denomination": 1000.0,
+  "disclosed_estimated_value": 938.9,
+  "selling_commission": 41.25,
+  "ev_gap": 61.10000000000002,
+  "residual_margin": 19.850000000000023,
+  "ev_gap_pct": 6.110000000000002,
+  "residual_margin_pct": 1.9850000000000023,
+  "v_opt": 914.1786212319897,
+  "s_opt": {
+   "spread": -0.010742009444198503,
+   "bracketed": true,
+   "value_at_low_spread": 979.1776906562698,
+   "value_at_high_spread": 533.3055376997219,
+   "target": 938.9,
+   "shortfall": 0.0
+  },
+  "v_nocall": 941.8769196335567,
+  "s_nocall": {
+   "spread": 0.0007624323613273143,
+   "bracketed": true,
+   "value_at_low_spread": 1067.8982006119963,
+   "value_at_high_spread": 519.5966731301512,
+   "target": 938.9,
+   "shortfall": 0.0
+  },
+  "n_obs": 60
+ },
+ {
+  "note_id": "N2",
+  "issuer": "Morgan Stanley Finance LLC",
+  "denomination": 1000.0,
+  "disclosed_estimated_value": 943.1,
+  "selling_commission": 36.25,
+  "ev_gap": 56.89999999999998,
+  "residual_margin": 20.649999999999977,
+  "ev_gap_pct": 5.689999999999999,
+  "residual_margin_pct": 2.0649999999999977,
+  "v_opt": 894.7408804596556,
+  "s_opt": {
+   "spread": -0.02016771782855428,
+   "bracketed": true,
+   "value_at_low_spread": 964.6876654568437,
+   "value_at_high_spread": 519.5615614077497,
+   "target": 943.1,
+   "shortfall": 0.0
+  },
+  "v_nocall": 917.5880188294368,
+  "s_nocall": {
+   "spread": -0.006595276540509608,
+   "bracketed": true,
+   "value_at_low_spread": 1040.2990614605749,
+   "value_at_high_spread": 506.4735587890361,
+   "target": 943.1,
+   "shortfall": 0.0
+  },
+  "n_obs": 60
+ },
+ {
+  "note_id": "N3",
+  "issuer": "Morgan Stanley Finance LLC",
+  "denomination": 1000.0,
+  "disclosed_estimated_value": 983.4,
+  "selling_commission": 2.5,
+  "ev_gap": 16.600000000000023,
+  "residual_margin": 14.100000000000023,
+  "ev_gap_pct": 1.6600000000000024,
+  "residual_margin_pct": 1.4100000000000024,
+  "v_opt": 962.9920351260454,
+  "s_opt": {
+   "spread": -0.01727016168401568,
+   "bracketed": true,
+   "value_at_low_spread": 996.9150233872019,
+   "value_at_high_spread": 694.7978415840801,
+   "target": 983.4,
+   "shortfall": 0.0
+  },
+  "v_nocall": 1003.3007325890196,
+  "s_nocall": {
+   "spread": 0.007570123023387143,
+   "bracketed": true,
+   "value_at_low_spread": 1086.5773889089066,
+   "value_at_high_spread": 679.3813972067014,
+   "target": 983.4,
+   "shortfall": 0.0
+  },
+  "n_obs": 36
+ },
+ {
+  "note_id": "N4",
+  "issuer": "GS Finance Corp.",
+  "denomination": 1000.0,
+  "disclosed_estimated_value": 999.0,
+  "selling_commission": 5.25,
+  "ev_gap": 1.0,
+  "residual_margin": -4.25,
+  "ev_gap_pct": 0.1,
+  "residual_margin_pct": -0.425,
+  "v_opt": 979.6028063136798,
+  "s_opt": {
+   "spread": NaN,
+   "bracketed": false,
+   "value_at_low_spread": 998.3428263889027,
+   "value_at_high_spread": 793.0708667425454,
+   "target": 999.0,
+   "shortfall": 0.6571736110972779
+  },
+  "v_nocall": 1016.3637890489638,
+  "s_nocall": {
+   "spread": 0.009728769691318254,
+   "bracketed": true,
+   "value_at_low_spread": 1071.945652395093,
+   "value_at_high_spread": 780.8075959084628,
+   "target": 999.0,
+   "shortfall": 0.0
+  },
+  "n_obs": 23
+ },
+ {
+  "note_id": "N5",
+  "issuer": "BofA Finance LLC",
+  "denomination": 1000.0,
+  "disclosed_estimated_value": 972.1,
+  "selling_commission": 25.0,
+  "ev_gap": 27.899999999999977,
+  "residual_margin": 2.8999999999999773,
+  "ev_gap_pct": 2.789999999999998,
+  "residual_margin_pct": 0.2899999999999977,
+  "v_opt": 960.5314141949214,
+  "s_opt": {
+   "spread": -0.028006423909320427,
+   "bracketed": true,
+   "value_at_low_spread": 972.9333123467447,
+   "value_at_high_spread": 902.6411959715061,
+   "target": 972.1,
+   "shortfall": 0.0
+  },
+  "v_nocall": 909.22168770753,
+  "s_nocall": {
+   "spread": NaN,
+   "bracketed": false,
+   "value_at_low_spread": 956.3968067637269,
+   "value_at_high_spread": 706.8587305383043,
+   "target": 972.1,
+   "shortfall": 15.703193236273137
+  },
+  "n_obs": 7
+ },
+ {
+  "note_id": "N6",
+  "issuer": "JPMorgan Chase Financial Company LLC",
+  "denomination": 1000.0,
+  "disclosed_estimated_value": 967.3,
+  "selling_commission": 22.25,
+  "ev_gap": 32.700000000000045,
+  "residual_margin": 10.450000000000045,
+  "ev_gap_pct": 3.2700000000000045,
+  "residual_margin_pct": 1.0450000000000046,
+  "v_opt": 953.9932463918701,
+  "s_opt": {
+   "spread": -0.015372734174708424,
+   "bracketed": true,
+   "value_at_low_spread": 978.3787155409634,
+   "value_at_high_spread": 772.9126462377847,
+   "target": 967.3,
+   "shortfall": 0.0
+  },
+  "v_nocall": 987.2630024149347,
+  "s_nocall": {
+   "spread": 0.011748335694948183,
+   "bracketed": true,
+   "value_at_low_spread": 1040.2673133071296,
+   "value_at_high_spread": 762.3986724565883,
+   "target": 967.3,
+   "shortfall": 0.0
+  },
+  "n_obs": 23
+ }
+]

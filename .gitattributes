@@ -1,0 +1,18 @@
+# Normalise line endings in the repository and check them out natively. Without
+# this, cloning on Windows rewrites every text file to CRLF, which changes the
+# bytes of the preserved 424B2 filings and the option-chain manifest and breaks
+# the SHA-256 checks in tests/test_snapshot_manifest.py.
+* text=auto
+
+# Data and source documents are compared byte for byte, so they must survive a
+# checkout unchanged on every platform.
+*.csv text eol=lf
+*.json text eol=lf
+*.yaml text eol=lf
+*.htm binary
+*.json.gz binary
+*.png binary
+*.pdf binary
+
+# Notebooks diff badly enough already; keep git from merging them line by line.
+*.ipynb -merge

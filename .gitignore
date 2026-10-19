@@ -1,0 +1,34 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ipynb_checkpoints/
+*.egg-info/
+.venv/
+venv/
+
+# Raw option chains are large and mostly unused. Tracked here, with their
+# checksums, are the chains the published results are actually built from: the
+# five the surfaces are fitted to (SPX, NDX, RUT, DIA for the Dow, SMH), plus
+# DJX, QQQ and IWM, which src/vol/proxy_check.py needs to measure the index
+# against its ETF. Everything else was captured as insurance before the sample
+# was fixed and is reproducible from src/data/option_snapshot.py for any
+# current session.
+data/raw/option_chains/*/*.json.gz
+!data/raw/option_chains/*/SPX.json.gz
+!data/raw/option_chains/*/NDX.json.gz
+!data/raw/option_chains/*/RUT.json.gz
+!data/raw/option_chains/*/DIA.json.gz
+!data/raw/option_chains/*/SMH.json.gz
+!data/raw/option_chains/*/DJX.json.gz
+!data/raw/option_chains/*/QQQ.json.gz
+!data/raw/option_chains/*/IWM.json.gz
+
+# Cached EDGAR documents from the screening run: one gzipped filing per 424B2
+# in the week, rebuilt by `make screen`. The six that matter are preserved in
+# full under references/sec_filings/.
+data/raw/edgar_cache/
+
+# Scratch
+*.log
+.DS_Store

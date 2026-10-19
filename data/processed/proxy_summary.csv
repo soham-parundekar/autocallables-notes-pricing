@@ -1,0 +1,4 @@
+index,etf,shared_expiries,t_max_shared,mean_difference_vol_pts,median_abs_difference_vol_pts,max_abs_difference_vol_pts
+DJX,DIA,1,0.6877,0.517,0.517,0.517
+NDX,QQQ,16,1.189,0.434,0.404,1.008
+RUT,IWM,16,2.1863,0.435,0.364,0.968

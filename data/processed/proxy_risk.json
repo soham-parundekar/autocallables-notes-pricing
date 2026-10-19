@@ -1,0 +1,20 @@
+{
+ "notes": [
+  {
+   "note_id": "N2",
+   "proxied_legs": {
+    "DJX": -0.00517
+   },
+   "shift_vol_points": {
+    "DJX": -0.517
+   },
+   "value_as_calibrated": 893.9297451337993,
+   "value_proxy_corrected": 896.5415461460834,
+   "difference": 2.611801012284104,
+   "stderr": 0.7338187081098815,
+   "disclosed_estimated_value": 943.1,
+   "gap_as_calibrated": -49.17025486620071,
+   "gap_proxy_corrected": -46.5584538539166
+  }
+ ]
+}

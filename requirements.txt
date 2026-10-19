@@ -1,0 +1,11 @@
+# Pinned loosely: the project needs these libraries, not specific builds.
+# Versions below are the ones the published results were produced with.
+numpy>=1.26          # 2.5.3
+scipy>=1.11          # 1.18.1
+pandas>=2.1          # 3.0.5
+matplotlib>=3.8      # 3.11.2
+pyyaml>=6.0          # 6.0.3
+requests>=2.31       # 2.34.2
+py_vollib>=1.0.1     # supplies py_lets_be_rational, Jaeckel's implied-vol inversion
+yfinance>=0.2        # 1.7.0, only for SMH daily closes
+pytest>=7.4          # test suite only

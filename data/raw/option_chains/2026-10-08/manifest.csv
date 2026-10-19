@@ -1,0 +1,2 @@
+ticker,cboe_symbol,quote_date,feed_timestamp,last_trade_time,underlying_close,security_type,n_contracts,sha256,raw_path
+OIH,OIH,2026-10-08,2026-10-08 23:11:40,2026-10-08T15:59:57,386.49,stock,1246,63bcedd3353dcfd8c6b26e8e33249602aaf3cbbaca169d8fe3722c3a1f657da2,raw/option_chains/2026-10-08/OIH.json.gz

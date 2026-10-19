@@ -1,0 +1,584 @@
+{
+ "generated_for_snapshot": "2026-10-09",
+ "notes": {
+  "N1": {
+   "note_id": "N1",
+   "base": {
+    "note_id": "N1",
+    "value": 910.9786426299454,
+    "stderr": 0.3419744356992372,
+    "value_no_control_variate": 914.625412121841,
+    "stderr_no_control_variate": 0.6679428836316199,
+    "variance_reduction_factor": 3.814972143856984,
+    "control_beta": [
+     -1.5171325861863387,
+     -1.205124370333579,
+     0.05588178345081032
+    ],
+    "funding_spread": 0.0,
+    "paths": 200000,
+    "prob_called": 0.6401,
+    "mean_call_index": 24.63973597875332,
+    "expected_life_years": 3.1804501780821917,
+    "prob_principal_loss": 0.21921,
+    "expected_loss_given_loss": 702.3992732612496,
+    "prob_knocked_in": 0.0,
+    "issuer": "JPMorgan Chase Financial Company LLC",
+    "cusip": "46661PD38",
+    "tickers": [
+     "NDX",
+     "RUT",
+     "SPX"
+    ],
+    "disclosed_estimated_value": 938.9,
+    "selling_commission": 41.25,
+    "call_style": "issuer_discretionary",
+    "pricing_date": "2026-10-07",
+    "maturity_date": "2031-10-10",
+    "tenor_years": 5.002739726027397,
+    "coupon_rate": 0.083,
+    "coupon_barrier": 0.7,
+    "downside_trigger": 0.65,
+    "downside_observation": "european",
+    "correlation_offdiag": [
+     0.7476384388391598,
+     0.9277277381735866,
+     0.8312611659429684
+    ],
+    "correlation_shift_achieved": 0.0,
+    "correlation_repaired": false,
+    "realised_vol": {
+     "NDX": 0.19897451858876855,
+     "RUT": 0.18729863903112495,
+     "SPX": 0.1301451526405113
+    },
+    "simulation": {
+     "n_time_steps": 1320,
+     "mean_local_vol": [
+      0.2591487418118675,
+      0.2588661520055379,
+      0.2085490391987339
+     ],
+     "grid_k_clamped_pct": [
+      9.774728409090908,
+      8.826711742424243,
+      5.4689575757575755
+     ]
+    }
+   },
+   "margin": {
+    "note_id": "N1",
+    "issuer": "JPMorgan Chase Financial Company LLC",
+    "denomination": 1000.0,
+    "disclosed_estimated_value": 938.9,
+    "selling_commission": 41.25,
+    "ev_gap": 61.10000000000002,
+    "residual_margin": 19.850000000000023,
+    "ev_gap_pct": 6.110000000000002,
+    "residual_margin_pct": 1.9850000000000023
+   },
+   "implied_spread_optimal_exercise": {
+    "spread": -0.012327705293919715,
+    "bracketed": true,
+    "value_at_low_spread": 975.3827345349401,
+    "value_at_high_spread": 532.0505190246453,
+    "target": 938.9,
+    "shortfall": 0.0
+   },
+   "implied_spread_no_early_call": {
+    "spread": -0.0001234517276038335,
+    "bracketed": true,
+    "value_at_low_spread": 1063.917366765949,
+    "value_at_high_spread": 517.8674443008107,
+    "target": 938.9,
+    "shortfall": 0.0,
+    "value_at_zero_spread": 938.4189860065119
+   },
+   "value_vs_spread": [
+    {
+     "spread_bp": -300.0,
+     "value": 975.3827345349401
+    },
+    {
+     "spread_bp": -200.0,
+     "value": 955.1984803176738
+    },
+    {
+     "spread_bp": -100.0,
+     "value": 933.8246208830476
+    },
+    {
+     "spread_bp": 0.0,
+     "value": 910.9786426299454
+    },
+    {
+     "spread_bp": 100.0,
+     "value": 886.6568664974839
+    },
+    {
+     "spread_bp": 200.0,
+     "value": 861.2866135429083
+    },
+    {
+     "spread_bp": 500.0,
+     "value": 779.6175130253273
+    },
+    {
+     "spread_bp": 1000.0,
+     "value": 645.1653598809421
+    }
+   ],
+   "corporate_oas_benchmark": {
+    "series": "BAMLC0A3CA",
+    "description": "ICE BofA A-rated US corporate index, option-adjusted spread",
+    "as_of": "2026-10-07",
+    "oas_pct": 0.69,
+    "oas_bp": 69.0
+   },
+   "fair_coupon": {
+    "fair_coupon": 0.11298122365942898,
+    "bracketed": true,
+    "offered_coupon": 0.083,
+    "coupon_gap": -0.02998122365942897,
+    "credit_spread_used": 0.0069,
+    "target": 958.75,
+    "value_at_zero_coupon": 646.1380678162615,
+    "value_at_max_coupon": 1470.9591106861394
+   },
+   "deltas": [
+    {
+     "underlying": "NDX",
+     "delta_per_1pct": 1.4505564394907537,
+     "value_up": 911.8809402510726,
+     "value_down": 908.9798273720911,
+     "gamma_per_1pct_squared": 0.1917259181245754
+    },
+    {
+     "underlying": "RUT",
+     "delta_per_1pct": 1.212810790498395,
+     "value_up": 911.5066162830203,
+     "value_down": 909.0809947020235,
+     "gamma_per_1pct_squared": -0.08143071999529639
+    },
+    {
+     "underlying": "SPX",
+     "delta_per_1pct": 1.784838164758753,
+     "value_up": 912.1958939965461,
+     "value_down": 908.6262176670286,
+     "gamma_per_1pct_squared": 0.15306995853575245
+    }
+   ],
+   "bucketed_vega": [
+    {
+     "bucket_years": "0-0.5",
+     "vega_per_vol_point": -0.7792568068748551,
+     "value_bumped": 909.5552640456447
+    },
+    {
+     "bucket_years": "0.5-1",
+     "vega_per_vol_point": -1.8716528034531166,
+     "value_bumped": 908.4628680490664
+    },
+    {
+     "bucket_years": "1-2",
+     "vega_per_vol_point": -2.259878208279247,
+     "value_bumped": 908.0746426442403
+    },
+    {
+     "bucket_years": "2-3",
+     "vega_per_vol_point": -7.244939160149329,
+     "value_bumped": 903.0895816923702
+    },
+    {
+     "bucket_years": "3-5",
+     "vega_per_vol_point": -5.782808340052497,
+     "value_bumped": 904.551712512467
+    }
+   ],
+   "correlation": {
+    "requested_shift": 0.05,
+    "achieved_shift": 0.050000000000000044,
+    "value_up": 919.8973254971382,
+    "value_down": 901.6143977658844,
+    "d_value_per_0.05": 9.14146386562691,
+    "investor_is_long_correlation": true,
+    "prob_loss_up": 0.20496,
+    "prob_loss_down": 0.23364
+   },
+   "decomposition": {
+    "funding_bond": 778.7680505294659,
+    "coupon_strip": 299.8694048935015,
+    "worst_of_put_cost": 135.72147904551468,
+    "issuer_call_cost": 27.98770177949723,
+    "value_without_call": 942.9159763774525,
+    "value_with_call": 914.9282745979552,
+    "sum_of_parts_without_call": 942.9159763774527,
+    "residual_vs_no_call": -2.2737367544323206e-13
+   },
+   "flat_vol": {
+    "local_vol_value": 910.3345208525195,
+    "flat_vol_value": 972.8291853229681,
+    "difference": 62.49466447044858,
+    "difference_pct": 6.865021927535269,
+    "flat_vols_used": {
+     "NDX": 0.2337,
+     "RUT": 0.2126,
+     "SPX": 0.1884
+    },
+    "flat_vol_prob_loss": 0.16348,
+    "flat_vol_prob_called": 0.64804
+   },
+   "extrapolation": {
+    "frozen_smile_value": 910.3345208525195,
+    "variance_slope_value": 922.6982968368378,
+    "difference": 12.363775984318295,
+    "difference_pct": 1.3581574356577995,
+    "extrapolation_reliance": {
+     "NDX": {
+      "longest_listed_expiry_years": 3.203,
+      "note_horizon_years": 5.003,
+      "extrapolated_years": 1.8,
+      "fraction_extrapolated": 0.3598
+     },
+     "RUT": {
+      "longest_listed_expiry_years": 2.186,
+      "note_horizon_years": 5.003,
+      "extrapolated_years": 2.816,
+      "fraction_extrapolated": 0.563
+     },
+     "SPX": {
+      "longest_listed_expiry_years": 5.197,
+      "note_horizon_years": 5.003,
+      "extrapolated_years": 0.0,
+      "fraction_extrapolated": 0.0
+     }
+    }
+   },
+   "timing": {
+    "moves": [
+     {
+      "ticker": "NDX",
+      "index": "VXN",
+      "basis": "exact",
+      "level_start": 21.0,
+      "level_end": 20.55,
+      "move_vol_points": -0.004499999999999993
+     },
+     {
+      "ticker": "RUT",
+      "index": "RVX",
+      "basis": "exact",
+      "level_start": 21.01,
+      "level_end": 19.93,
+      "move_vol_points": -0.010800000000000018
+     },
+     {
+      "ticker": "SPX",
+      "index": "VIX",
+      "basis": "exact",
+      "level_start": 15.08,
+      "level_end": 14.84,
+      "move_vol_points": -0.002400000000000002
+     }
+    ],
+    "applied_shift_vol_points": 0.005900000000000005,
+    "snapshot_value": 910.3345208525195,
+    "timing_adjusted_value": 906.2980645142887,
+    "difference": -4.036456338230778,
+    "difference_pct": -0.4434036330348843
+   },
+   "risk_paths": 50000,
+   "delta_base_value": 910.3345208525195
+  },
+  "N2": {
+   "note_id": "N2",
+   "base": {
+    "note_id": "N2",
+    "value": 894.378633750815,
+    "stderr": 0.3670329964968364,
+    "value_no_control_variate": 896.1325738948668,
+    "stderr_no_control_variate": 0.6933387573284029,
+    "variance_reduction_factor": 3.56845920962476,
+    "control_beta": [
+     -0.9794665506337213,
+     -1.2963670918821233,
+     -0.9200651433357344
+    ],
+    "funding_spread": 0.0,
+    "paths": 200000,
+    "prob_called": 0.58062,
+    "mean_call_index": 27.494126967724156,
+    "expected_life_years": 3.489052082191781,
+    "prob_principal_loss": 0.25984,
+    "expected_loss_given_loss": 679.6107849913695,
+    "prob_knocked_in": 0.0,
+    "issuer": "Morgan Stanley Finance LLC",
+    "cusip": "61781LWY2",
+    "tickers": [
+     "DJX",
+     "NDX",
+     "RUT"
+    ],
+    "disclosed_estimated_value": 943.1,
+    "selling_commission": 36.25,
+    "call_style": "rational_exercise",
+    "pricing_date": "2026-10-07",
+    "maturity_date": "2031-10-10",
+    "tenor_years": 5.002739726027397,
+    "coupon_rate": 0.083,
+    "coupon_barrier": 0.7,
+    "downside_trigger": 0.65,
+    "downside_observation": "european",
+    "correlation_offdiag": [
+     0.6430042095665387,
+     0.7916630421846031,
+     0.7476384388391598
+    ],
+    "correlation_shift_achieved": 0.0,
+    "correlation_repaired": false,
+    "realised_vol": {
+     "DJX": 0.12804322715161898,
+     "NDX": 0.19897451858876855,
+     "RUT": 0.18729863903112495
+    },
+    "simulation": {
+     "n_time_steps": 1320,
+     "mean_local_vol": [
+      0.19165516721288872,
+      0.25933189728581074,
+      0.25875899999311996
+     ],
+     "grid_k_clamped_pct": [
+      5.610240909090909,
+      9.843541666666667,
+      8.83455037878788
+     ]
+    }
+   },
+   "margin": {
+    "note_id": "N2",
+    "issuer": "Morgan Stanley Finance LLC",
+    "denomination": 1000.0,
+    "disclosed_estimated_value": 943.1,
+    "selling_commission": 36.25,
+    "ev_gap": 56.89999999999998,
+    "residual_margin": 20.649999999999977,
+    "ev_gap_pct": 5.689999999999999,
+    "residual_margin_pct": 2.0649999999999977
+   },
+   "implied_spread_optimal_exercise": {
+    "spread": -0.020415390529614833,
+    "bracketed": true,
+    "value_at_low_spread": 964.6378706139916,
+    "value_at_high_spread": 519.6340227292875,
+    "target": 943.1,
+    "shortfall": 0.0
+   },
+   "implied_spread_no_early_call": {
+    "spread": -0.006885806282003725,
+    "bracketed": true,
+    "value_at_low_spread": 1038.9296074253052,
+    "value_at_high_spread": 506.30808115408547,
+    "target": 943.1,
+    "shortfall": 0.0,
+    "value_at_zero_spread": 916.5083935875205
+   },
+   "value_vs_spread": [
+    {
+     "spread_bp": -300.0,
+     "value": 964.6378706139916
+    },
+    {
+     "spread_bp": -200.0,
+     "value": 942.133815594559
+    },
+    {
+     "spread_bp": -100.0,
+     "value": 918.9950403539875
+    },
+    {
+     "spread_bp": 0.0,
+     "value": 894.378633750815
+    },
+    {
+     "spread_bp": 100.0,
+     "value": 868.8135595856062
+    },
+    {
+     "spread_bp": 200.0,
+     "value": 842.5937043059516
+    },
+    {
+     "spread_bp": 500.0,
+     "value": 760.7966667373124
+    },
+    {
+     "spread_bp": 1000.0,
+     "value": 629.4221553809539
+    }
+   ],
+   "corporate_oas_benchmark": {
+    "series": "BAMLC0A3CA",
+    "description": "ICE BofA A-rated US corporate index, option-adjusted spread",
+    "as_of": "2026-10-07",
+    "oas_pct": 0.69,
+    "oas_bp": 69.0
+   },
+   "fair_coupon": {
+    "fair_coupon": 0.12397792086613467,
+    "bracketed": true,
+    "offered_coupon": 0.083,
+    "coupon_gap": -0.040977920866134665,
+    "credit_spread_used": 0.0069,
+    "target": 963.75,
+    "value_at_zero_coupon": 628.560599172599,
+    "value_at_max_coupon": 1471.1160378616541
+   },
+   "deltas": [
+    {
+     "underlying": "DJX",
+     "delta_per_1pct": 1.3825096202984355,
+     "value_up": 895.2992306580996,
+     "value_down": 892.5342114175028,
+     "gamma_per_1pct_squared": -0.02604819199632402
+    },
+    {
+     "underlying": "NDX",
+     "delta_per_1pct": 1.7951206389668073,
+     "value_up": 895.7489335281339,
+     "value_down": 892.1586922502003,
+     "gamma_per_1pct_squared": 0.04813551073539202
+    },
+    {
+     "underlying": "RUT",
+     "delta_per_1pct": 1.2471248347195,
+     "value_up": 895.2144990806559,
+     "value_down": 892.7202494112169,
+     "gamma_per_1pct_squared": 0.07525822427396633
+    }
+   ],
+   "bucketed_vega": [
+    {
+     "bucket_years": "0-0.5",
+     "vega_per_vol_point": -0.9178860072917132,
+     "value_bumped": 893.0118591265076
+    },
+    {
+     "bucket_years": "0.5-1",
+     "vega_per_vol_point": -0.7874694347048035,
+     "value_bumped": 893.1422756990945
+    },
+    {
+     "bucket_years": "1-2",
+     "vega_per_vol_point": -1.3020139665156876,
+     "value_bumped": 892.6277311672836
+    },
+    {
+     "bucket_years": "2-3",
+     "vega_per_vol_point": -10.038332934011692,
+     "value_bumped": 883.8914121997876
+    },
+    {
+     "bucket_years": "3-5",
+     "vega_per_vol_point": -4.748926671163758,
+     "value_bumped": 889.1808184626356
+    }
+   ],
+   "correlation": {
+    "requested_shift": 0.05,
+    "achieved_shift": 0.050000000000000044,
+    "value_up": 901.937345374468,
+    "value_down": 886.5365080730681,
+    "d_value_per_0.05": 7.700418650699924,
+    "investor_is_long_correlation": true,
+    "prob_loss_up": 0.24816,
+    "prob_loss_down": 0.27348
+   },
+   "decomposition": {
+    "funding_bond": 778.7680505294659,
+    "coupon_strip": 291.16047226511637,
+    "worst_of_put_cost": 151.68037094420652,
+    "issuer_call_cost": 22.3409161518141,
+    "value_without_call": 918.2481518503755,
+    "value_with_call": 895.9072356985614,
+    "sum_of_parts_without_call": 918.2481518503757,
+    "residual_vs_no_call": -2.2737367544323206e-13
+   },
+   "flat_vol": {
+    "local_vol_value": 893.9297451337993,
+    "flat_vol_value": 964.1434869547974,
+    "difference": 70.21374182099805,
+    "difference_pct": 7.854503354789786,
+    "flat_vols_used": {
+     "DJX": 0.1702,
+     "NDX": 0.2337,
+     "RUT": 0.2126
+    },
+    "flat_vol_prob_loss": 0.18196,
+    "flat_vol_prob_called": 0.63896
+   },
+   "extrapolation": {
+    "frozen_smile_value": 893.9297451337993,
+    "variance_slope_value": 897.0838608071358,
+    "difference": 3.1541156733364915,
+    "difference_pct": 0.3528370870872406,
+    "extrapolation_reliance": {
+     "DJX": {
+      "longest_listed_expiry_years": 2.282,
+      "note_horizon_years": 5.003,
+      "extrapolated_years": 2.721,
+      "fraction_extrapolated": 0.5438
+     },
+     "NDX": {
+      "longest_listed_expiry_years": 3.203,
+      "note_horizon_years": 5.003,
+      "extrapolated_years": 1.8,
+      "fraction_extrapolated": 0.3598
+     },
+     "RUT": {
+      "longest_listed_expiry_years": 2.186,
+      "note_horizon_years": 5.003,
+      "extrapolated_years": 2.816,
+      "fraction_extrapolated": 0.563
+     }
+    }
+   },
+   "timing": {
+    "moves": [
+     {
+      "ticker": "DJX",
+      "index": "VIX",
+      "basis": "proxy: no published Dow vol index",
+      "level_start": 15.08,
+      "level_end": 14.84,
+      "move_vol_points": -0.002400000000000002
+     },
+     {
+      "ticker": "NDX",
+      "index": "VXN",
+      "basis": "exact",
+      "level_start": 21.0,
+      "level_end": 20.55,
+      "move_vol_points": -0.004499999999999993
+     },
+     {
+      "ticker": "RUT",
+      "index": "RVX",
+      "basis": "exact",
+      "level_start": 21.01,
+      "level_end": 19.93,
+      "move_vol_points": -0.010800000000000018
+     }
+    ],
+    "applied_shift_vol_points": 0.005900000000000005,
+    "snapshot_value": 893.9297451337993,
+    "timing_adjusted_value": 885.9936751518024,
+    "difference": -7.936069981996866,
+    "difference_pct": -0.8877733429497898
+   },
+   "risk_paths": 50000,
+   "delta_base_value": 893.9297451337993
+  }
+ },
+ "convergence": {}
+}

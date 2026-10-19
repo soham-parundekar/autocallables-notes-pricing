@@ -1,0 +1,88 @@
+# Run configuration. Anything here that is a modelling choice rather than a
+# convenience is explained, because these are the knobs a reviewer should push.
+
+snapshot:
+  date: 2026-10-09
+  option_chains: data/raw/option_chains
+  treasury_csv: data/raw/treasury_par_yields_2026.csv
+  vix_history: data/raw/cboe_vix_history.csv
+  vxn_history: data/raw/cboe_vxn_history.csv
+  rvx_history: data/raw/cboe_rvx_history.csv
+
+# Which chain each note underlying is calibrated from.
+#
+# Four of the five are the cash index or fund the note actually references. The
+# Dow is not: DJX options are far too thin to build a surface from, with four
+# usable expiries reaching only 0.69 years against a note that runs to 2031.
+# DIA (the Dow ETF, trading at one hundredth of the index) lists out to 2.28
+# years with far more open interest, so the Dow surface is calibrated from DIA.
+# That substitution is checked, not assumed: where the two overlap at 0.44
+# years the ATM vols are 14.5% on DJX and 14.8% on DIA. The same check on the
+# other pairs gives NDX 22.0% against QQQ 22.0%, and RUT 19.4% against IWM
+# 19.4%. Everything downstream works in log-moneyness, so DIA's factor-of-100
+# scale difference from the index cancels and is never undone.
+underlyings:
+  SPX: {chain: SPX, kind: index, exercise: european}
+  NDX: {chain: NDX, kind: index, exercise: european}
+  RUT: {chain: RUT, kind: index, exercise: european}
+  DJX: {chain: DIA, kind: etf,   exercise: american, proxy_for: Dow Jones Industrial Average}
+  SMH: {chain: SMH, kind: etf,   exercise: american}
+
+surface:
+  min_days_to_expiry: 14        # inside a fortnight, vols are tick noise
+  # Minimum gap between the expiries used to build the term structure. Dupire's
+  # numerator is dw/dT, obtained by differencing adjacent fitted slices, so two
+  # expiries three days apart divide ~20bp of independent fit error by dt=0.008
+  # and amplify it about 125-fold. Monthly spacing carries the same information
+  # with a quarter of the noise.
+  min_expiry_spacing_days: 25
+  max_relative_spread: 0.35
+  absolute_spread_floor: 0.20
+  # Calibrated log-moneyness band, and the band the calendar condition is
+  # enforced across. The deepest barrier in the sample is 60% of initial, which
+  # is k = -0.51, so this clears every level the notes can reach with margin.
+  #
+  # Width is a real trade-off, measured rather than guessed. SPX lists puts out
+  # to k = -2.1 that trade for cents; including them widened the SPX fit from
+  # 19bp to 40bp of vol, left five expiries that the calendar constraint could
+  # not be satisfied on, and tripled the number of grid points where local
+  # variance came out non-positive. Narrowing further to [-0.75, 0.35] fits
+  # better still (14bp) but introduces a butterfly failure and leaves too little
+  # room past the 60% barrier. Local vol is held flat in moneyness outside this
+  # band.
+  k_clip: [-0.9, 0.45]
+  parity_band: 0.12             # +/- of spot used to identify F and DF
+  extrapolation: frozen_smile   # frozen_smile | variance_slope | frozen_shifted
+  extrapolation_vol_shift: 0.0
+
+correlation:
+  lookback_days: 252            # one year of daily log returns, per the brief
+  repair: higham                # nearest valid correlation matrix if not PSD
+  repair_tolerance: 1.0e-10
+
+monte_carlo:
+  paths: 200000
+  steps_per_year: 252           # daily, so American knock-ins are monitored daily
+  seed: 20261009
+  antithetic: true
+  control_variate: true
+  convergence_path_counts: [10000, 50000, 100000, 200000, 500000]
+  # Longstaff-Schwartz basis for the issuer's call decision. Regressing the
+  # continuation value on the worst performer plus its square and the spread
+  # between best and worst is enough to capture the exercise boundary without
+  # the overfitting a high-order basis invites on 200k paths.
+  lsm_basis: [worst, worst_squared, best_minus_worst, coupon_accrued]
+  lsm_min_paths_in_regression: 500
+
+funding:
+  # Brent bracket for the implied funding spread, in continuously compounded
+  # decimal. Three hundred basis points either side is far wider than any
+  # plausible answer and keeps the root finder from a sign-change failure.
+  spread_bracket: [-0.03, 0.15]
+  tolerance: 1.0e-8
+
+greeks:
+  spot_bump: 0.01               # 1% relative, common random numbers
+  vol_bump: 0.01                # 1 vol point, bucketed by maturity
+  correlation_bump: 0.05        # +/- 0.05 uniform shift, repaired after shifting
+  vega_buckets: [0.5, 1.0, 2.0, 3.0, 5.0]
