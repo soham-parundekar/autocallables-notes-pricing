@@ -1,0 +1,139 @@
+\section{The disclosed estimated value, and prior work}\label{sec:prior}
+% Objective: What the number is and where it comes from: SEC staff guidance, not a rule. Position against Bauer et al., who verified such values on German certificates and left autocallables to future research.
+
+\subsection{What the issuers say the number is}
+
+The filings are explicit that the estimated value is a model output and whose
+model it is. One of the supplements priced here states that the issue price
+``exceeds the estimated value of your notes as of the time the terms of your
+notes are set on the trade date, as determined by reference to GS\&Co.'s
+pricing models and taking into account our credit spreads,'' and that those
+``pricing models are proprietary and rely in part on certain assumptions about
+future events, which may prove to be incorrect.''\footnote{Quotations in this
+subsection are from the pricing supplement for note N4, filed by GS Finance
+Corp.\ under accession number 0001193125-26-419171 and preserved in full in the
+project repository; the filings for all six notes are identified in
+Appendix~\ref{app:terms}. The other three issuers in the sample describe the
+figure in materially similar terms, each naming its own proprietary models:
+Morgan Stanley's supplements say the estimated value ``is determined using our
+own pricing and valuation models'' and that these ``are proprietary,'' and
+BofA's say it is ``determined as of the pricing date by reference to our and
+our affiliates' pricing models.''} The same document lists the inputs: ``our credit spreads, interest rates (forecasted, current and
+historical rates), volatility, price-sensitivity analysis and the time to
+maturity of the notes.''
+
+That list is worth reading closely, because correlation does not appear in it.
+The note it describes pays on the weakest of three equity indices, and
+\S\ref{sec:results} shows the investor is long correlation on every note in the
+sample. Morgan Stanley's supplements list their inputs too, naming ``market inputs and
+assumptions relating to the underliers, instruments based on the underliers,
+volatility and other factors including current and expected interest rates,''
+and correlation is absent there as well. Both lists are introduced as partial,
+with ``including principally'' and ``other factors,'' so neither purports to be
+complete and no inference follows that either model ignores correlation. What does follow is narrower and is the point of this paper: the
+disclosure names the inputs it considers principal, and the input that most
+distinguishes a worst-of structure from a single-underlying one is not among
+them.
+
+The gap between the issue price and the estimated value is itself attributed,
+in the same document, to ``the underwriting discount and commissions, the
+expenses incurred in creating, documenting and marketing the notes, and an
+estimate of the difference between the amounts we pay to GS\&Co.\ and the
+amounts GS\&Co.\ pays to us in connection with your notes.'' The first two
+components appear on the cover as numbers. The third does not. It is the
+internal transfer between the issuing entity and its distribution affiliate,
+and it is the component that the phrase ``internal funding rate'' is usually
+reaching for. That phrase belongs to the issuers rather than to the guidance. The 2012
+comment letter discussed below does not contain it, while JPMorgan's supplements
+in this sample carry a risk factor headed ``Estimated Value of the Notes Is
+Derived by Reference to an Internal Funding Rate.'' The attribution matters
+because the rate it names is the one input a reader cannot recover.
+
+One further sentence in the same risk factor deserves attention, since it
+anticipates this paper's exercise and declines to bound it. The actual value an
+investor could realise ``may differ, perhaps materially, from the estimated
+value of your notes determined by reference to our models due to, among other
+things, any differences in pricing models or assumptions used by others.'' The
+filing therefore tells the reader that another party's model may disagree, by
+an amount it does not characterise, for reasons it does not enumerate. Putting
+a number on that disagreement for a specific class of notes, from inputs the
+reader can obtain, is what follows in \S\ref{sec:results}.
+
+\subsection{Where the disclosure comes from}
+
+The practice originates in an April 2012 sample comment letter from the
+Division of Corporation Finance, addressed to financial institutions issuing
+structured notes \citep{SEC2012}. On the valuation figure the letter asks that
+issuers ``should consider prominently disclosing'' it, language that is
+advisory in form as well as in effect. A sample comment letter is staff
+guidance: it conveys the views of the staff, not a rule adopted by the
+Commission, and it binds no one. No rule has since replaced it for this figure.
+
+The practical consequence is that there is no prescribed form, and the sample
+examined here shows the range that permits. Among the final worst-of
+contingent-coupon supplements filed in the sample week, five carry no point
+estimate in the filed document. Three state the figure as a bound rather than a
+number, with the cover reading ``Our estimated value of the notes on trade
+date: Not less than the face amount of such notes.'' The remaining two carry
+only the risk-factor heading and locate the figure in an accompanying index
+supplement that is not part of the document filed under the
+cover.\footnote{These five supplements are not among the six priced here and
+are therefore not preserved in the project repository, which holds only the
+documents the valuations depend on. They remain retrievable from EDGAR under
+accession numbers 0001193125-26-415466, 0001193125-26-413990 and
+0001193125-26-413989 for the three quoting a bound, and 0000950103-26-015173
+and 0000950103-26-015172 for the two deferring to a supplement.} All five
+come from one issuer. None of this is a deficiency, since nothing requires a
+point estimate; it is what discretionary disclosure looks like when it is
+exercised.
+
+The timing is constrained even where the content is not. Rule 424(b)(2)
+requires the priced supplement to be filed no later than the second business
+day following the earlier of the date of determination of the offering price or
+the date it is first used \citep{SEC424b2}. A verification exercise therefore
+has a short and known window in which the terms are fixed and public, which is
+what makes a single week a coherent sample rather than an arbitrary one.
+
+\subsection{Prior work}
+
+The literature on retail structured products has measured issuer margins for
+two decades, mostly in Europe and mostly by replication. \citet{Wilkens2003}
+document premia over replication cost and a life-cycle pattern in German
+products; \citet{Stoimenov2005} extend the fair-pricing analysis across
+equity-linked retail instruments; \citet{Entrop2016} quantify overpricing of
+discount certificates and attribute a substantial share of it to issuer credit
+risk; and \citet{Ruf2011} relates pricing power to credit quality. In the US,
+\citet{Henderson2011} is the canonical study, establishing that these notes are
+issued above model value, and \citet{Deng2011} give an early valuation
+treatment of autocallable structures alongside evidence of their growth. The
+methods for valuing the structures themselves are well developed:
+\citet{Guillaume2015} derives analytical results covering memory coupons,
+partial protection and worst-of contingencies, and \citet{Kim2019} construct
+static replications of autocallable and barrier features as an alternative to
+simulation.
+
+This paper differs from all of these in its object. They measure the distance
+between a price and a model value. The question here is the distance between
+two model values, one of which the issuer published. The nearest precedent for
+treating a disclosed figure as the thing under examination is
+\citet{Jorgensen2011}, who compare overpricing against costs the issuer
+disclosed at issuance and find roughly half of it unexplained. On the US
+estimated-value disclosure specifically, \citet{Lai2022} assembles a large
+EDGAR sample of auto-callable reverse convertibles, but studies realised
+returns rather than whether the disclosed figure can be reproduced.
+
+The closest published work is \citet{Bauer2020}, who check issuer-disclosed
+fair values against standard option pricing models for German retail
+certificates and conclude that the disclosed values can be reproduced. Their
+sample is of simpler instruments, and they say so: ``[m]ore complex products
+like autocallables are left for future research.'' Three features of the setting
+examined here make that an unusually clean gap to occupy. The product is a
+worst-of on several correlated underlyings rather than a single one. On five of
+the six notes redemption before maturity is not automatic, three being at the
+issuer's option and two following the disclosed rational-exercise rule quoted
+in \S\ref{sec:intro}, so valuation requires an optimal-stopping problem solved
+against the investor rather than a barrier check. And the figure rests on staff
+guidance that prescribes neither a method nor a form, which is what makes
+reproducing it a question about the disclosure and not only about the model.
+Whether a disclosed value can be reproduced is therefore open in this market
+rather than settled elsewhere and carried across.

@@ -1,0 +1,149 @@
+\section{Which inputs can explain the difference}\label{sec:inputs}
+
+\input{tables/inputs}
+% Objective: Rule candidate explanations in or out one at a time. Correlation, smile, timing, proxy bias, exercise suboptimality.
+
+A candidate explanation has to clear two bars. It must move the model value
+toward the disclosed figure rather than away from it, and it must be capable of
+moving it far enough. Direction alone is not enough and magnitude alone is
+meaningless if the sign is wrong. Table~\ref{tab:inputs} reports each input's
+measured effect on a common set of paths, with one input moved at a time and
+the rest held at their calibrated values. Taken in turn, four candidates fail
+one bar or the other and two survive both. A third survivor sits outside that
+table, because it is a dimension the model used here does not have.
+
+\subsection{Ruled out by direction}
+
+Two candidates move the wrong way.
+
+The funding rate was settled in \S\ref{sec:results} and is the first a reader
+reaches for, because the filings point there. Raising the discount spread
+lowers the model value and widens the gap; closing it requires a negative
+spread on every note. Nothing about a funding assumption the issuer declines to
+publish repairs that, because the sign is wrong before the magnitude is
+discussed.
+
+Observation timing fails the same way. The surface is observed two business
+days after five of the notes priced, and aligning it back to each pricing date
+using the move in the matching volatility index lowers every value further, by
+\$3.64 to \$4.56 across the headline notes. The adjustment is real and it
+belongs in the model, but it enlarges the quantity to be explained rather than
+reducing it.
+
+\subsection{Right direction, too small}
+
+Two candidates push the right way and cannot reach.
+
+The proxied Dow leg, discussed in \S\ref{sec:data}, raises the affected note by
+\$2.61 with a standard error of \$0.73 when corrected on its own. That is about
+five per cent of that note's gap, and it touches one note of the six. It is a
+real bias with a measured size, and the size is not the size of the problem.
+
+Extrapolating the surface past the longest listed expiry matters only where the
+extrapolation is long. Carrying the last observed variance slope forward
+instead of freezing the smile raises the five-year note by \$12.36, which is 44
+per cent of its gap and far from negligible. On the three notes under two years
+the same change is worth \$0.22 to \$0.77. The term structure assumption is
+therefore a genuine source of uncertainty on the long end of the sample and
+close to irrelevant on the short end, while the gap is present throughout. It
+cannot be the common explanation, though it plausibly contributes to the
+largest case.
+
+\subsection{Bounded by the exercise policy}
+
+Suboptimal exercise was quantified in \S\ref{sec:results} and the bound it
+gives is partial. On three notes the disclosed value sits between the
+no-call and optimally-called valuations, consistent with an issuer recognising
+two to twenty-nine per cent of the call's worth. On the two five-year notes it
+sits above the no-call valuation entirely at a 69 basis point funding spread,
+so no exercise assumption reaches it. An explanation that works for three notes
+and is arithmetically unavailable for two others is not the explanation,
+although it may well be part of the answer for the three.
+
+\subsection{What survives}
+
+Two of the measured inputs clear both bars, and a third candidate clears them
+on published evidence without being measurable here at all. None of the three
+is published in the filings.
+
+\paragraph{Correlation.} The investor is long correlation on every note, so
+raising it raises the model value. The measured sensitivity is \$3.10 to \$9.14
+per 0.05 of uniform pairwise correlation. Closing each gap on correlation alone
+would take a uniform increase of 0.15 to 0.27, which is three to five times the
+perturbation actually measured, obtained by extrapolating a local sensitivity
+well beyond the range over which it was computed and therefore an estimate of
+the order rather than a precise requirement. The direction is right and there is
+a reason to expect a difference: a desk selling a worst-of is short correlation
+and marks it above a realised estimate, which is the approximation
+\S\ref{sec:method} flagged as the method's largest. Whether the difference is
+of this size is not something six notes can settle. The candidate is live and
+unresolved.
+
+\paragraph{The shape of the volatility surface.} Replacing each leg's fitted
+surface with a single at-the-money volatility raises all six notes, by \$6.65
+to \$70.21. This comparison is quoted over all six rather than over the
+headline five, because what it measures is a sensitivity rather than a level,
+and the barrier-coverage objection of \S\ref{sec:data} bears on the excluded
+note's value, not on how that value responds to flattening its surface. On five
+of the six the move is larger than the gap: a fully flat surface overshoots the
+disclosed value by \$12.64 to \$33.93, and falls short on only one note, by
+\$4.87. Somewhere between the quoted smile and no smile at all
+there is a surface that reproduces each disclosed figure exactly.
+
+The claim this supports is narrow and the narrowness matters. No desk prices a
+worst-of on a flat volatility surface, and nothing here suggests any issuer
+did. What the flat-vol valuation provides is a bound: it shows the distance
+between this paper's values and the disclosed ones lies inside the range that
+disagreement about the shape of the surface can generate, and comfortably
+inside it on five notes. A structure whose principal trigger sits 30 to 40 per
+cent below the initial level, with coupon barriers 25 to 35 per cent below it,
+is priced off the wing of the smile rather than its level, and
+the wing is where quotes thin out and modelling choices diverge most. Two
+careful desks working from the same quotes can differ there by more than the
+amounts in Table~\ref{tab:results}.
+
+\paragraph{The dynamics of that surface.} A third candidate does not appear in
+Table~\ref{tab:inputs}, because the model used here cannot produce it. Local
+volatility reproduces today's surface and fixes how it evolves; stochastic and
+stochastic-local volatility models add a vol-of-vol dimension that a European
+repricing gate cannot see. \citet{Farkas2022} put the point sharply for
+autocallable barrier reverse convertibles: the stochastic parameters of a
+Heston local-stochastic volatility model control the autocallable price
+\emph{while leaving the fit to European options unaffected}, and the richer
+dynamics typically produce higher prices than local volatility. Higher is the
+direction that would close the gap measured here.
+
+Two qualifications stop that from being an answer. Their products are
+single-asset and these are worst-of on three underlyings, so the direction is
+suggestive rather than transferable. And the candidates are not independent:
+\citet{DeCol2017} study equity worst-of autocallables under multi-dimensional
+stochastic local volatility and find the correlations between the stochastic
+variances central to pricing them, so correlation and volatility dynamics
+interact in precisely this product class rather than contributing separately.
+Setting them out as two columns of a table, as this section necessarily does,
+is itself a simplification.
+
+The consequence for \S\ref{sec:validation} is worth stating plainly. That
+section establishes the engine returns the vanilla prices it was calibrated to.
+\citet{Farkas2022} establish that two models can agree on every one of those
+prices and still disagree on an autocallable. The validation gate is silent on
+this dimension by construction, not by oversight.
+
+\subsection{Taken together}
+
+Of the inputs this study can measure, none closes the gap on every note while
+moving in the right direction except the shape of the volatility surface, and
+that one does so by bounding the problem rather than by identifying a choice.
+Funding and timing are excluded by sign. The proxy and the extrapolation are
+too small or too narrow. Exercise policy accounts for part of three notes and
+none of two. Correlation remains, sufficient in principle at a shift this
+sample cannot adjudicate. Beyond what is measured, the dynamics of the surface
+remain open, and the published direction favours them.
+
+That is a weaker conclusion than naming a cause and a stronger one than
+reporting an unexplained residual. All three surviving candidates are inputs
+the disclosure does not contain, and one of them, correlation, is absent even
+from the lists of principal inputs that two of these issuers print
+(\S\ref{sec:prior}). A reader holding the pricing supplement cannot
+distinguish among them, which is a statement about what the disclosure makes
+checkable rather than about what any issuer did.

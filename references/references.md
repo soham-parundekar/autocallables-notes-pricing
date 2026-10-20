@@ -13,9 +13,11 @@ read off the source.
 ## Methodology and literature
 
 **REF-001 — Gatheral, J. and Jacquier, A., "Arbitrage-free SVI volatility surfaces."**
-arXiv:1204.0646v4 [q-fin.PR], 21 March 2013. Later published in *Quantitative
-Finance* (2014); the arXiv version is the one used here, and its journal volume
-and page range were not confirmed from the arXiv record, so they are not cited.
+*Quantitative Finance*, 14(1), 59-71, 2014. DOI
+10.1080/14697688.2013.819986. The implementation was written against the arXiv
+version (arXiv:1204.0646v4, 21 March 2013); the journal volume and pages, which
+this register previously recorded as unconfirmed, were confirmed against
+Crossref on 2026-10-19, and the published version is the one cited.
 Retrieved 2026-10-11 from https://arxiv.org/abs/1204.0646
 
 Supplies the raw SVI parameterisation in total implied variance and, more
@@ -96,7 +98,11 @@ regression-estimated coefficients used here.
 *Used by:* `src/pricer/simulate.py` (antithetic sampling),
 `src/pricer/payoff.py` (`control_variate_adjust`).
 
-**REF-008 — Martini, C. and Mingone, A., "No arbitrage SVI."** arXiv:2005.03340.
+**REF-008 — Martini, C. and Mingone, A., "No arbitrage SVI."** *SIAM Journal on
+Financial Mathematics*, 13(1), 227-261, 2022. DOI 10.1137/20m1351060. The
+preprint (arXiv:2005.03340, 2020) was what the implementation was written
+against; the published version was located on Crossref on 2026-10-19 and
+supersedes it, so the year to cite is 2022.
 Retrieved 2026-10-19 from https://arxiv.org/pdf/2005.03340
 
 Used for the quasi-explicit calibration reduction, and as the verifiable record

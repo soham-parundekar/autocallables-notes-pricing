@@ -1,0 +1,94 @@
+\section{Introduction}\label{sec:intro}
+% Objective: State the question, the answer (no), and the two contributions: the verification result on six notes, and a census of what is priceable at all.
+
+The cover page of a US structured note's pricing supplement carries an estimated
+value: the issuer's own figure for what the security is worth, set below the
+price the investor pays for it. One of the notes examined here was sold at
+\$1{,}000 and disclosed at \$938.90. The practice traces to a sample comment
+letter from the SEC's Division of Corporation Finance \citeyearpar{SEC2012},
+which asked issuers to ``consider prominently disclosing'' such a figure; it is
+staff guidance and not a rule, and no rule has since replaced it. What the filing
+omits is how the number was reached. The model belongs to the issuer, so does
+the volatility surface, and the discount curve embeds an internal funding rate
+that appears nowhere in the document. An investor is given a valuation and no
+means of checking it.
+
+This paper asks whether the figure can be reproduced from outside the issuer,
+using only public data.
+
+The question is put to worst-of autocallable notes, which are the most
+demanding instrument in the disclosure rather than the most convenient. Payment
+tracks the weakest of three correlated equity underlyings. A contingent coupon
+is paid only when every leg closes at or above its barrier on an observation
+date, and principal is returned in full only if the weakest leg finishes above
+a lower trigger. The call deserves particular attention, because the product's
+name misdescribes it. On five of the six notes priced here redemption is not
+automatic: three are redeemable at the issuer's option, and two are redeemed,
+in the issuer's own words, ``if and only if the output of a risk neutral
+valuation model \ldots\ indicates that redeeming on such date is economically
+rational for us.'' Only one note in the sample redeems mechanically when a
+level is reached. Valuing any of them calls for a joint model that carries each
+leg's skew, a correlation structure, and an exercise rule solved from the
+issuer's side of the contract, where the holder of the option is short the
+investor's payoff and stops to minimise it.
+
+Every input is public. Implied volatility surfaces are fitted to delayed
+end-of-day option quotes from Cboe under the no-arbitrage conditions of raw
+SVI, converted to Dupire local volatility, and simulated jointly against a
+Treasury discount curve; the issuer's call is solved by Longstaff--Schwartz
+regression on 200{,}000 paths. Before any note is priced the engine is made
+to return the vanilla prices it was calibrated to, measured against the quoted
+bid-ask width rather than in isolation, since an error only counts as large
+relative to the price uncertainty of the market it came from. Four of the five
+surfaces return a median error below 0.26 of the quoted bid-ask width, well
+inside the band the market itself prices in. The S\&P 500 surface does not, and
+\S\ref{sec:validation} attributes that to its exceptionally narrow quoted width
+rather than to a poor fit: at 0.131 volatility points its absolute error falls
+inside the range the other four surfaces span, while its quoted width is 4.7
+times narrower than the next tightest in the sample.
+
+The answer is no. On all six notes the independent valuation lands below the
+disclosed figure, by \$11.41 to \$27.92 per \$1{,}000 of principal across the
+five notes whose barriers are covered by quoted strikes, or 1.17 to 2.97 per
+cent of the disclosed value. Inverting the question makes the size of the
+problem clearer: solving for the constant funding spread over Treasuries that
+would set model value equal to disclosed value returns a negative spread on
+every note for which the solution brackets, from $-278$ to $-123$ basis points,
+against an option-adjusted spread of 69 basis points on A-rated US corporate
+debt on the pricing date. Reconciliation would require the issuer to borrow
+below the Treasury curve. A funding rate the filing does not disclose is
+therefore not a sufficient explanation for the difference, which is the
+candidate a reader would reach for first.
+
+What follows from this is narrower than it may appear, and the limits are worth
+stating before the evidence. The result is not a finding of overpricing.
+\citet{Henderson2011} established that these notes are issued above model
+value, and the disclosed estimated value is itself below the issue price, so
+both orderings already hold; the gap measured here is between the disclosed
+value and an independent valuation, not between either and the price. Nor does this paper
+identify what the residual is made of, though it narrows the field.
+\S\ref{sec:inputs} takes the candidates one at a time and excludes four of
+them: funding and observation timing move the value the wrong way, while the
+proxied leg and the term extrapolation move the right way by too little or on
+too few notes. Suboptimal exercise accounts for part of three notes and is
+arithmetically unavailable for two. Two measured candidates survive, the
+correlation assumption and the shape of the volatility surface, and a third,
+the dynamics of that surface, is one a local-volatility model cannot test at
+all. None of the three is published in the filings. Which is at work, or in
+what combination, is not something six notes can settle. Six notes from
+one week support a bounded claim and no population statement.
+
+Two contributions remain. The first is the verification exercise itself, run on
+the product class the nearest published work set aside: \citet{Bauer2020} check
+issuer-disclosed values against standard option pricing models on German retail
+certificates and state plainly that ``[m]ore complex products like
+autocallables are left for future research.'' This paper prices them, and
+reports the funding-spread inversion as a diagnostic that converts an
+unexplained difference into a statement about what the difference cannot be.
+The second is a census of what any such exercise can reach. Of 1{,}086
+prospectus supplements filed on Form 424B2 in a single week, 129 are final
+worst-of notes with a contingent coupon and a disclosed estimated value, and 71
+of those, 55 per cent, can be priced from public option quotes at all. The
+remainder reference underlyings with no listed options or no usable chain. Any
+outside verification of this disclosure is bounded by that fraction, and
+\S\ref{sec:data} reports where the rest of the market goes.

@@ -1,0 +1,56 @@
+% Unnumbered back matter, in the same set and the same order as the author's
+% previous working paper.
+%
+% Two departures from that template, both deliberate. The availability
+% statements are written for this project rather than carried over: the earlier
+% paper rested on licensed vendor records it could not redistribute, while every
+% input here is public and the repository is public with it. And the earlier
+% paper's "Code availability" heading carried a sentence about data, which is
+% repaired rather than reproduced.
+%
+% The generative-AI-use declaration keeps the earlier paper's wording and
+% position, with the tool named as the one actually used. scripts/
+% scan_repository.py lists this section as a documented exception to the
+% repository's vocabulary check.
+
+\section*{Funding}
+The author declares no external funding.
+
+\section*{Disclosure statement}
+The author declares no competing financial interests.
+
+\section*{Data availability statement}
+Every input to this study is public. The six pricing supplements are preserved
+in full under \texttt{references/sec\_filings/} and remain retrievable from
+EDGAR under the accession numbers recorded in
+\texttt{references/source\_register.csv}. Option quotes are delayed end-of-day
+chains from Cboe's public endpoint, captured on 9 October 2026. The eight chains
+the reported results depend on are tracked in the repository alongside the
+SHA-256 digest of each file, so a reader can confirm that the surfaces were
+fitted to the quotes recorded here rather than to a later capture. The other
+chains taken that morning are not tracked, and since the endpoint serves only
+current quotes they cannot be retrieved for that date afterwards. The Treasury
+par yield curve, the Cboe volatility index histories and the FRED series are
+published by the issuing institution and are downloaded by
+\texttt{scripts/fetch\_reference\_data.py}. Daily closes for the one
+exchange-traded fund among the underlyings come from a commercial endpoint
+rather than an official series, which is noted where that note is priced.
+
+\section*{Code availability}
+The pricing engine, the calibration code, the test suite and the frozen outputs
+behind every number reported here are available at
+\url{https://github.com/soham-parundekar/autocallables-notes-pricing}. The Monte
+Carlo results reproduce exactly rather than approximately: the path count and
+the seed are recorded in \texttt{config/params.yaml}, and \texttt{make surfaces
+validate analysis report} regenerates the calibrated surfaces, the tables and
+the figures from the preserved snapshot. The repository was cloned into a clean
+environment and that sequence rerun before the results were frozen, which
+returned the calibrated parameters to the last digit and the reported tables
+byte for byte.
+
+\section*{Declaration of generative AI use}
+During the preparation of this work, the author used Claude in order to revise
+and restructure the manuscript, prepare the plotting script, literature checks
+and LaTeX preparation. After using this tool/service, the author reviewed and
+edited the content as needed and takes full responsibility for the content of
+the published article.

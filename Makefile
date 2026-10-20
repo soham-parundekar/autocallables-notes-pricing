@@ -12,7 +12,8 @@
 PYTHON ?= python3
 CONTACT ?= $(shell git config user.name) $(shell git config user.email)
 
-.PHONY: all data surfaces validate analysis report check-report test scan screen clean-processed
+.PHONY: all data surfaces validate analysis report check-report test scan screen paper \
+        paper-tables paper-figures audit-paper bibliography clean-processed
 
 all: surfaces validate analysis test report scan
 
@@ -49,6 +50,34 @@ report:
 # Does the committed report match the committed results? Used by the audit.
 check-report:
 	$(PYTHON) scripts/make_report.py --check --require 6
+
+# Regenerate the manuscript's bibliography from the verified citation bank.
+# Entries come from Crossref, so this needs the network; --offline reuses the
+# cached responses under paper/.bibcache/.
+bibliography:
+	$(PYTHON) scripts/make_bibliography.py
+
+# The manuscript's tables, generated from the frozen results rather than typed.
+# A number in the paper that cannot be traced to a saved result is the failure
+# mode this target exists to prevent.
+paper-tables:
+	$(PYTHON) scripts/make_paper_tables.py
+
+# Every number in the manuscript against the frozen results. Catches figures
+# with no source; see the script's docstring for what it cannot catch.
+audit-paper:
+	$(PYTHON) scripts/audit_paper_numbers.py
+	$(PYTHON) scripts/audit_paper_claims.py --quiet
+
+# The manuscript uses the same figures as the report rather than its own copies,
+# so they are synced at build time. Editing one in paper/figures/ would be
+# overwritten here, which is the point: reports/figures/ is the single source.
+paper-figures:
+	cp reports/figures/*.png paper/figures/
+
+# Compile the manuscript. Requires a TeX distribution with newtx and apacite.
+paper: bibliography paper-tables paper-figures audit-paper
+	cd paper && latexmk -pdf -interaction=nonstopmode main.tex
 
 test:
 	$(PYTHON) -m pytest tests/ -q

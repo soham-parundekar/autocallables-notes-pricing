@@ -28,11 +28,17 @@ CALL_LABEL = {
 
 
 def basis_points(spread: dict | None) -> str:
+    """The spread in basis points, or why there is no number to print.
+
+    The unit belongs inside this function. Appending " bp" at the call site
+    glued it onto the two sentinels as well, so a cell with no solved spread
+    printed "no solution bp", which reads as a quantity.
+    """
     if not spread:
         return "n/a"
     if not spread.get("bracketed"):
         return "no solution"
-    return f"{spread['spread'] * 1e4:+,.0f}"
+    return f"{spread['spread'] * 1e4:+,.0f} bp"
 
 
 def main(root: Path) -> None:
@@ -130,7 +136,7 @@ def main(root: Path) -> None:
         )
         lines.append(
             f"| {note_id} | {disclosed:,.2f} | {result['base']['value']:,.2f} "
-            f"| {basis_points(optimal)} bp | {no_call_value} | {basis_points(no_call)} bp |"
+            f"| {basis_points(optimal)} | {no_call_value} | {basis_points(no_call)} |"
         )
     lines.append("")
     lines.append("The auto-callable note has no no-call column: its redemption is "
@@ -163,6 +169,22 @@ def main(root: Path) -> None:
             f"| {note_id} | {d['funding_bond']:,.2f} | {d['coupon_strip']:,.2f} "
             f"| −{d['worst_of_put_cost']:,.2f} | −{d['issuer_call_cost']:,.2f} "
             f"| {d['value_without_call']:,.2f} | {d['value_with_call']:,.2f} |"
+        )
+
+    # Without this the last column sits a few points away from Table 1 with no
+    # stated reason, which reads as a contradiction rather than a coarser
+    # estimate of the same number.
+    risk_paths = {r["risk_paths"] for r in results.values()}
+    base_paths = {r["base"]["paths"] for r in results.values()}
+    if len(risk_paths) == 1 and len(base_paths) == 1:
+        lines.append(
+            f"\nThe decomposition runs on the risk path set, {risk_paths.pop():,} paths "
+            f"with no control variate, because every part has to be simulated under the "
+            f"same draws for the parts to add up. Table 1 reports the headline estimator: "
+            f"{base_paths.pop():,} paths with the European control variate. The last column "
+            f"is therefore a coarser estimate of the Table 1 value, not a competing one, "
+            f"and the two differ by sampling error. The residual column in the saved "
+            f"results confirms the parts sum to the no-call value to within floating point."
         )
 
     section("Model risk")

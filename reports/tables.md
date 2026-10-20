@@ -36,8 +36,8 @@ Benchmark: ICE BofA A-rated US corporate index, option-adjusted spread, 69 bp on
 | N1 | 938.90 | 910.98 | -123 bp | 938.42 | -1 bp |
 | N2 | 943.10 | 894.38 | -204 bp | 916.51 | -69 bp |
 | N3 | 983.40 | 962.56 | -179 bp | 1,003.28 | +76 bp |
-| N4 | 999.00 | 979.84 | no solution bp | 1,016.72 | +99 bp |
-| N5 | 972.10 | 960.69 | -278 bp | not applicable | n/a bp |
+| N4 | 999.00 | 979.84 | no solution | 1,016.72 | +99 bp |
+| N5 | 972.10 | 960.69 | -278 bp | not applicable | n/a |
 | N6 | 967.30 | 954.01 | -156 bp | 987.88 | +121 bp |
 
 The auto-callable note has no no-call column: its redemption is mechanical and contractual, so removing it describes a different security rather than a different modelling assumption.
@@ -63,6 +63,8 @@ The auto-callable note has no no-call column: its redemption is mechanical and c
 | N4 | 913.12 | 171.01 | −67.22 | −36.38 | 1,016.92 | 980.54 |
 | N5 | 920.50 | 90.38 | −102.08 | −-51.99 | 908.81 | 960.80 |
 | N6 | 913.12 | 194.24 | −119.14 | −34.23 | 988.22 | 954.00 |
+
+The decomposition runs on the risk path set, 50,000 paths with no control variate, because every part has to be simulated under the same draws for the parts to add up. Table 1 reports the headline estimator: 200,000 paths with the European control variate. The last column is therefore a coarser estimate of the Table 1 value, not a competing one, and the two differ by sampling error. The residual column in the saved results confirms the parts sum to the no-call value to within floating point.
 
 ### Table 6. Model risk
 

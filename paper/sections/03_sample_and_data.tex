@@ -1,0 +1,140 @@
+\section{Sample and data}\label{sec:data}
+% Objective: The calendar constraint from Rule 424(b)(2); the screening census; the six notes and the structures they span.
+
+\subsection{Why the sample is one week}
+
+A note can only be repriced against its disclosed value while its terms are
+both fixed and public, and that state begins later than one might expect and is
+announced only briefly. The preliminary supplement carries ranges: a coupon quoted as
+``at least'' some rate, a trigger to be determined, an estimated value given as
+an interval.\footnote{The phrasing is standard across the preliminary
+supplements in this week. One example, filed under accession number
+0001918704-26-031175, offers ``a Contingent Interest Rate of at least 9.70\%
+per annum.'' These documents are superseded by their priced counterparts and
+are not preserved in the repository.} The priced supplement replaces all of it with numbers, and Rule
+424(b)(2) requires that document to be filed no later than the second business
+day following the earlier of the date the offering price was determined or the
+date the supplement is first used \citep{SEC424b2}.
+
+So the terms arrive in a stream of final supplements with a two-day lag and no
+subsequent amendment. Choosing a calendar week and taking every qualifying
+filing in it is therefore a sampling rule a reader can check, and one that
+cannot be tuned after the fact by extending the window until the results
+improve. The week used here is 5 to 9 October 2026. Five of the six notes were
+priced on 7 October and the sixth on 5 October.
+
+\subsection{What the week contained}
+
+\input{tables/census}
+
+Table~\ref{tab:census} is the whole filing population, each filing assigned to
+the first stage it fails, so the rows partition rather than overlap. Of 1{,}086
+supplements filed on Form 424B2 that week, 667 are preliminary and 285 are
+final but not the structure under study, either because they are not worst-of or
+because they carry no contingent coupon. A further five are final worst-of notes
+with a contingent coupon that state no point estimate of the value, discussed
+in \S\ref{sec:prior}.
+
+That leaves 129 final worst-of contingent-coupon notes with a disclosed
+estimated value, of which 71 can be priced from public option quotes. Of the 58
+that cannot, 16 are written on single names or funds and 42 carry at least one
+leg whose options are not listed. That second group is more concentrated than
+one would guess. In 33 of the 42 the only such leg is the Nasdaq-100 Technology
+Sector index, a US index with no options market of its own; the remaining nine
+reference the EURO STOXX 50, the Nikkei 225 or a futures-based Russell variant.
+The ratio is worth carrying forward. An outside party attempting this
+verification can reach 55 per cent of the qualifying market, and what it cannot
+reach is not a random sample of the rest but is dominated by notes on a
+single index that has no options market of its own.
+
+\subsection{The six notes}
+
+\input{tables/terms}
+
+Six of the 71 are priced here, listed in Table~\ref{tab:terms}, chosen to span
+the structural variation rather than to be representative in any statistical
+sense. They come from four issuers. Tenors run from 1.75 to 5.00 years, contingent
+coupons from 6.25 to 12.40 per cent per annum, coupon barriers from 65 to 75
+per cent of the initial level and downside triggers from 60 to 70 per cent. The
+disclosed estimated values run from \$938.90 to \$999.00 per \$1{,}000 and the
+selling commissions from \$2.50 to \$41.25, the low figure belonging to a note
+sold only into fee-based advisory accounts where the adviser is compensated
+separately.
+
+The call mechanics vary more than the name of the product suggests, and the
+variation is the reason six notes are enough to be interesting. Three are
+redeemable at the issuer's option on scheduled dates. Two redeem under the
+disclosed rational-exercise rule quoted in \S\ref{sec:intro}. One, and only
+one, is auto-callable in the ordinary sense: redemption is mechanical when every
+underlying closes at or above 93.25 per cent of its starting level on one of
+six observation dates. That threshold is itself worth noting, since discussions
+of these products often assume the automatic call sits at the initial level.
+
+\subsection{Option data and the fitted surfaces}
+
+Implied volatility surfaces are fitted to delayed end-of-day option chains
+retrieved from Cboe's public endpoint and preserved as of 9 October 2026, with a
+SHA-256 digest recorded for every file. Five surfaces cover the eighteen leg positions the six
+notes carry between them, which resolve to five distinct underlyings. Expiries inside a fortnight are dropped, as are quotes whose
+relative bid-ask exceeds 0.35, and log-moneyness is clipped to $[-0.9, 0.45]$;
+consecutive expiries closer than 25 days apart are thinned so that the calendar
+condition is tested across separated maturities rather than across
+adjacent weeklies.
+
+Each slice's forward and discount factor come from a put-call parity regression
+across near-the-money strikes. Three of the five surfaces are fitted to cash
+index options, which are European, and for these both quantities are fitted.
+The other two are fitted to exchange-traded fund options, which are American,
+and there the discount factor is pinned to the Treasury curve and only the
+forward is fitted. Parity is an identity only under European exercise: left to
+fit freely on the semiconductor ETF, the regression returned a discount factor
+implying a 1.6 per cent zero rate against 4.3 per cent Treasuries, because the
+early-exercise premium on in-the-money puts grows with strike and tilts the
+slope. Pinning the discount factor removes that tilt while leaving the forward
+to carry the market's dividend assumption. Near the money the early-exercise
+premium itself is small enough to leave in the quotes, which is an
+approximation rather than a correction and is revisited in \S\ref{sec:limits}.
+
+\subsection{The one proxied leg}
+
+Four of the five underlyings are priced off options on the instrument named in
+the term sheet. The exception is the Dow Jones Industrial Average, whose listed
+index options are too sparse to fit a surface across the maturities these notes
+need, and which is therefore priced off options on the ETF that tracks it.
+
+What that substitution costs can be measured rather than assumed, because two
+other legs in the sample have both an index and an ETF chain available at shared
+expiries. At-the-money implied volatility is higher on the fund than on the
+index in every comparison: by 0.517 volatility points for the Dow pair at the
+one expiry they share, and by 0.434 and 0.435 points on average for the
+Nasdaq-100 and Russell 2000 pairs across 16 shared expiries each, reaching
+beyond one and two years respectively. The sign is consistent and the magnitude
+is similar across all three, which is what makes the Dow figure usable as an
+estimate rather than a single observation.
+
+Correcting that one leg, and nothing else, shifts the affected note's value from
+\$893.93 to \$896.54, a rise of \$2.61 with a standard error of \$0.73, and
+narrows its difference from the disclosed value from \$49.17 to \$46.56. The
+proxy therefore accounts for about five per cent of that note's gap and moves it
+in the direction that would close it. It is the same note whose downside trigger
+falls outside the quoted strike range on the Dow leg, which is why
+\S\ref{sec:results} reports it but holds it out of the stated ranges;
+Appendix~\ref{app:coverage} gives the coverage counts leg by leg.
+
+\subsection{Rates, spreads and the volatility indices}
+
+Discounting uses the US Treasury par yield curve for the valuation date, as
+published by the Treasury. The benchmark against which an implied funding spread
+is judged is the ICE BofA A-rated US corporate index option-adjusted spread,
+69 basis points on the pricing date, taken from the Federal Reserve Bank of St
+Louis. The Cboe volatility indices for the S\&P 500, Nasdaq-100 and Russell
+2000 supply the surface move between the pricing date and the snapshot date used
+in \S\ref{sec:inputs}, each index matched to the leg it measures. Daily closes
+for the semiconductor ETF come from a commercial endpoint rather than an
+official series, no free official source for a single fund's history being
+available; that series affects one note of the six.
+
+Every series above is free and unauthenticated, and the retrieval code is in the
+repository. The option chains the reported results depend on are preserved with
+their digests, since a delayed-quote endpoint serves only current quotes and the
+9 October snapshot cannot be retrieved again.

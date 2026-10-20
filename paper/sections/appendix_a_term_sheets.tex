@@ -1,0 +1,44 @@
+\section{Term sheet detail for the six notes}\label{app:terms}
+
+Each note is identified below by CUSIP and by the EDGAR accession number of the
+priced supplement it was read from. All six documents are preserved in full in
+the project repository, and all six remain retrievable from EDGAR under these
+accession numbers. The economic terms appear in Table~\ref{tab:terms}; what
+follows is the information needed to locate the source and to see which
+structural variant each note is.
+
+\begin{table}[htbp]
+\centering
+\caption{Filing identifiers and structural variant}
+\label{tab:filings}
+\small
+\begin{tabular}{l l l l l}
+\toprule
+Note & CUSIP & Accession number & Coupon frequency & Redemption \\
+\midrule
+N1 & 46661PD38 & 0001918704-26-031125 & monthly   & issuer's option \\
+N2 & 61781LWY2 & 0001839882-26-050390 & monthly   & rational-exercise rule \\
+N3 & 61781LM23 & 0001839882-26-050393 & monthly   & rational-exercise rule \\
+N4 & 40058M7F9 & 0001193125-26-419171 & monthly   & issuer's option \\
+N5 & 09712CWN9 & 0001918704-26-030916 & quarterly & automatic at 93.25\% \\
+N6 & 46661PL96 & 0001918704-26-031101 & monthly   & issuer's option \\
+\bottomrule
+\end{tabular}
+\notetext{\textit{Notes:} Product names as printed on the covers are
+\textit{Callable Contingent Interest Notes} (N1, N6), \textit{Callable
+Contingent Income Securities} (N2, N3), \textit{Callable Contingent Coupon
+Index-Linked Notes} (N4) and \textit{Contingent Income Auto-Callable Yield
+Notes} (N5). Each note is issued by a finance subsidiary and guaranteed by its
+parent. The three notes redeemable at the issuer's option become redeemable on
+scheduled payment dates after an initial non-call period: from the twelfth
+payment date on N1 and from the third on N4 and N6, in each case excluding the
+final payment. The two governed by the rational-exercise rule are redeemable on
+every stated redemption date, 48 of them on N2 and 30 on N3.}
+\end{table}
+
+One structural difference matters for the simulation and is not visible in
+Table~\ref{tab:terms}. Five of the notes observe the downside trigger only at
+maturity, so a breach is a European condition on the terminal level. The
+auto-callable note observes it on any trading day, which is an American
+knock-in and is handled in the simulation by a per-path indicator updated at
+every daily step rather than at the observation dates alone.

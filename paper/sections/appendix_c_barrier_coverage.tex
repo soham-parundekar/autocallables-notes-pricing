@@ -1,0 +1,22 @@
+\section{Quoted strike coverage at each note's barrier}\label{app:coverage}
+
+A worst-of note's entire downside sits at its trigger, so the surface is queried
+there far more consequentially than at the money. Whether a quote exists at that
+point separates interpolating the smile from extrapolating it, and the
+distinction decides which notes carry ranges quoted in the text.
+
+Table~\ref{tab:coverage} counts, for every leg of every note, the fitted slices
+with maturity beyond one year whose quoted strikes reach down to the note's
+trigger. One year is the threshold because the short end of every surface here
+is quoted deep enough for the question not to arise. A leg scoring zero prices
+that note's downside, for the whole of its life past the first year, from an
+extrapolated wing.
+
+One leg of one note scores zero. That note is reported throughout and held out
+of every range quoted in \S\ref{sec:results} and \S\ref{sec:inputs}. The rule
+is stated as a count rather than a verdict so that a reader who considers the
+threshold too lenient can apply a stricter one without re-running anything:
+requiring coverage on a majority of deep slices rather than on one, for
+instance, changes no note's status in this sample.
+
+\input{tables/coverage}

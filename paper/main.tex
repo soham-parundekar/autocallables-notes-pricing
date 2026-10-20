@@ -1,0 +1,148 @@
+% Worst-of autocallable notes priced against their disclosed estimated values.
+%
+% Layout follows the author's previous working paper: 11pt letterpaper article,
+% 1in margins, newtx (Times), running head, booktabs tables with a note block
+% under each. Two deliberate departures from that template are recorded at the
+% points where they occur: the bibliography is APA author-date rather than the
+% journal style used there, and the author block is single-author.
+%
+% Build: latexmk -pdf main.tex   (pdflatex + bibtex; biber is not required)
+% The bibliography is generated, not written: see scripts/make_bibliography.py.
+
+\documentclass[11pt,letterpaper]{article}
+\usepackage[margin=1in,headheight=14pt]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amsthm}
+\usepackage{newtxtext,newtxmath}
+\usepackage{microtype}
+\usepackage{graphicx,booktabs,tabularx,array,multirow}
+\usepackage{caption}
+\usepackage{enumitem}
+\usepackage{setspace}
+
+% Departure from the previous paper, which used natbib with a hand-written
+% journal-style bibliography. apacite with the natbibapa option keeps the
+% \citep and \citet commands that template relies on while rendering the
+% reference list in APA author-date form.
+\usepackage[natbibapa]{apacite}
+
+\usepackage{xurl}
+\usepackage[hidelinks]{hyperref}
+% xurl allows a break at every character and inserts stretchable glue at each
+% one, so a justified line containing the repository URL opened a gap at its
+% hyphen and read as "soham -parundekar". The glue is removed and the break
+% points restricted to separators no reader would mistake for address
+% characters. Both have to be set after xurl's own begin-document hook, which
+% would otherwise put its defaults back.
+\AtBeginDocument{%
+  \Urlmuskip=0mu plus 0mu%
+  \def\UrlBreaks{\do\/\do\.\do\=\do\?\do\&\do\_}%
+  \def\UrlBigBreaks{\do\:}}
+\usepackage{fancyhdr}
+\usepackage{placeins}
+\usepackage{etoolbox}
+
+\providecommand{\SohamLocation}{\textit{India}}
+
+\hypersetup{%
+  pdftitle={Can the issuer's estimated value be reproduced from public data?
+            Evidence from worst-of autocallable notes},
+  pdfauthor={Soham Abhay Parundekar},
+  pdfsubject={Independent repricing of 424B2 worst-of autocallable notes from public data},
+  pdfkeywords={structured notes, autocallable, estimated value, local volatility,
+               SVI, Longstaff-Schwartz, 424B2}}
+
+\setstretch{1.06}
+\setlength{\parindent}{1em}
+\setlength{\parskip}{3pt}
+\setlength{\emergencystretch}{2em}
+\clubpenalty=10000
+\widowpenalty=10000
+\setlength{\textfloatsep}{13pt plus 3pt minus 3pt}
+\setlength{\floatsep}{11pt plus 2pt minus 2pt}
+\captionsetup{font=small,labelfont=bf,labelsep=period,justification=raggedright,
+              singlelinecheck=false,skip=7pt}
+\setcounter{topnumber}{2}
+\setcounter{totalnumber}{3}
+\renewcommand{\topfraction}{0.90}
+\renewcommand{\textfraction}{0.08}
+\renewcommand{\floatpagefraction}{0.80}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\footnotesize Reproducing the issuer's estimated value}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.25pt}
+
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Var}{\operatorname{Var}}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\ind}{\mathbf{1}}
+\newcommand{\F}{\mathcal{F}}
+% Objects specific to this paper.
+\newcommand{\worst}{W}                        % worst performance across underlyings
+\newcommand{\lv}{\sigma_{\mathrm{LV}}}        % Dupire local volatility
+\newcommand{\totvar}{w}                       % total implied variance
+\newcommand{\logm}{k}                         % log-moneyness
+\newcommand{\spread}{s}                       % funding spread over Treasuries
+\newcommand{\notetext}[1]{\vspace{4pt}\par\noindent{\footnotesize\raggedright #1\par}}
+
+\newtheorem{proposition}{Proposition}
+\newtheorem{remark}{Remark}
+\renewcommand{\arraystretch}{1.12}
+
+\begin{document}
+
+\thispagestyle{plain}
+\begin{center}
+{\LARGE\bfseries Can the issuer's estimated value be reproduced\\from public data?\par}
+\vspace{7pt}
+{\large Evidence from worst-of autocallable notes\par}
+\vspace{14pt}
+
+{\fontsize{10.1}{11.7}\selectfont\bfseries Soham Abhay Parundekar\par}
+\vspace{1.5pt}
+{\fontsize{8.0}{9.4}\selectfont\href{mailto:parundekarsoham@gmail.com}%
+  {\nolinkurl{parundekarsoham@gmail.com}}\par}
+\vspace{1.0pt}
+{\fontsize{8.5}{10.0}\selectfont Independent Researcher, \SohamLocation\par}
+\end{center}
+\vspace{8pt}
+
+\begin{abstract}
+\input{sections/00_abstract}
+\end{abstract}
+
+\noindent\textit{Keywords:} structured notes; autocallable; estimated value;
+local volatility; Monte Carlo.\par
+\noindent\textit{JEL classification:} G12, G13, G14, G24.
+\vspace{8pt}
+
+\input{sections/01_introduction}
+\input{sections/02_disclosed_value_and_prior_work}
+\input{sections/03_sample_and_data}
+\input{sections/04_method}
+\input{sections/05_validation}
+\input{sections/06_results}
+\input{sections/07_which_inputs}
+\input{sections/08_limitations}
+\input{sections/09_conclusion}
+\input{sections/declarations}
+
+
+
+\begingroup
+\small
+\setlength{\bibsep}{4pt}
+\bibliographystyle{apacite}
+\bibliography{references}
+\endgroup
+
+\appendix
+\input{sections/appendix_a_term_sheets}
+\input{sections/appendix_b_svi}
+\input{sections/appendix_c_barrier_coverage}
+
+\end{document}

@@ -1,0 +1,75 @@
+\section{SVI calibration and the arbitrage conditions}\label{app:svi}
+
+\subsection*{The fit}
+
+Fitting all five raw parameters of \eqref{eq:svi} at once is possible and
+unreliable. The objective has local minima, and on the S\&P 500 expiry at
+$T = 0.36$ a direct least-squares run in this sample converged to
+$\rho = +0.39$, a positive skew, which is the wrong sign for an equity index
+and left 26 basis points of error at the money.
+
+The fit used here is the quasi-explicit reduction. The reduction itself
+predates the arbitrage-free treatment, having been proposed in a 2009
+whitepaper that \citet{MartiniMingone2022} record as its origin; it is their
+paper that characterises which reduced parameters correspond to an
+arbitrage-free slice, which is what makes a constrained refit well posed.
+Substituting
+$y = (\logm - m)/s$ turns \eqref{eq:svi} into
+%
+\begin{equation}
+  \totvar(y) = a + (b\,\rho\,s)\,y + (b\,s)\sqrt{y^2 + 1},
+  \label{eq:svi-reduced}
+\end{equation}
+%
+which is linear in the three coefficients $(a,\; c = b\rho s,\; d = bs)$. The
+outer search therefore has to handle only $m$ and $s$, with the inner problem
+solved exactly as a weighted linear least squares at each candidate pair. Two
+constraints make the solution a valid slice: $d \geq |c|$, which is $|\rho| \leq
+1$, and $a + \sqrt{d^2 - c^2} \geq 0$, which keeps total variance non-negative
+everywhere. The unconstrained inner solution usually satisfies both, and the
+constrained solver runs only when it does not, which is what keeps the
+two-dimensional outer search affordable.
+
+\subsection*{The weighting, and why it is not uniform}
+
+Residuals are measured in total variance, but the quantity that matters is
+error in implied volatility, and the two objectives are not the same. On the
+fitted S\&P 500 slice at $T = 0.94$, total variance runs from 0.0245 at the
+money to 0.1546 at the deepest quoted strike, a factor of 6.3. Least squares
+weights by the square of the residual, so an unweighted fit in $\totvar$ is
+dominated by the wing at roughly 40 to 1 and will fit the tail at the expense
+of the strikes that matter most for a note struck near the money.
+
+Since $d\totvar = 2\sigma T\, d\sigma$, scaling each weight by
+$1/(2\sigma T)^2$ converts the objective into squared volatility error while
+leaving it linear in the coefficients, which is what the reduction in
+\eqref{eq:svi-reduced} requires. That factor multiplies a base weight taken
+from quote tightness, the reciprocal of the relative bid-ask, capped at 50 so
+that one unusually tight quote cannot dominate its slice.
+
+\subsection*{Enforcing the two conditions}
+
+The butterfly condition \eqref{eq:butterfly} is evaluated after each fit on a
+grid scoped to that expiry's own quoted strikes, padded by 0.10 in
+log-moneyness and capped at five standard deviations of total volatility. A
+slice violating it anywhere on that grid is refitted with the condition
+imposed, rather than having the offending wing smoothed afterwards.
+
+The calendar condition is enforced pairwise between adjacent fitted expiries on
+the grid they share. Where total variance decreases in maturity at any point,
+the later slice is refitted subject to
+$\totvar_{\text{later}}(\logm) \geq \totvar_{\text{earlier}}(\logm)$. Expiries
+closer than 25 days apart are thinned beforehand, because two nearly coincident
+expiries divide independent fit error by a very small $\Delta T$ and manufacture
+violations that are an artefact of the spacing rather than a property of the
+surface.
+
+Grid scope is not a detail. Enforcing these conditions on a single wide grid
+spanning $\logm \in [-1.5, 1.0]$ asks a two-week slice about strikes far beyond
+anything it quotes, where it is purely extrapolating, and the calendar
+condition then makes that extrapolated wing a floor for every later expiry. The
+constraint propagates forward from the slice with the least information rather
+than the most, and the degradation compounds across the term structure. Scoped
+instead to the strikes each pair of adjacent expiries actually quotes, the
+surfaces fit without that pressure, and the audit in \S\ref{sec:validation}
+returns zero failures of either condition across all 68 slices.

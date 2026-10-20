@@ -1,0 +1,92 @@
+\section{Conclusion}\label{sec:conclusion}
+% Objective: Answer the question, state both contributions at their true size, name what would settle it.
+
+No. An independent valuation built from public option quotes, a public rates
+curve and the terms in the filing itself does not reproduce the issuer's
+disclosed estimated value. It lands below it on all six notes, by \$11.41 to
+\$27.92 per \$1{,}000 across the five whose barriers are covered by quoted
+strikes, against simulation standard errors between \$0.24 and \$0.37.
+
+The funding rate, which the filings themselves name as the input the reader
+cannot see, does not account for it. Solving for the spread that would
+reconcile the two valuations returns a negative number on every note, from
+$-278$ to $-123$ basis points against an A-rated corporate benchmark of 69. The
+sign is what carries the result: a disclosed value computed with a higher
+internal funding rate would reconcile at a positive spread, and none of them
+do.
+
+Taking the remaining candidates one at a time excludes four more. Observation
+timing moves values further away. The proxied Dow leg and the choice of term
+extrapolation move the right way but are too small, or matter on too few notes,
+to be the common cause. Suboptimal exercise accounts for part of three notes
+and is arithmetically unavailable for the two five-year ones, whose disclosed
+values sit above what the notes are worth with the issuer's call removed
+altogether.
+
+Two measured candidates survive on both direction and magnitude. The
+correlation assumption would close each gap with a uniform increase of 0.15 to
+0.27, which is large but runs the way a dealer's mark is known to run against a
+realised estimate. The shape of the volatility surface would close it
+comfortably: a fully flat surface overshoots the disclosed value on five of the
+six notes. A third candidate cannot be measured with a local-volatility model
+at all, and the published direction favours it: \citet{Farkas2022} report that
+richer volatility dynamics price autocallables above local volatility, moving
+the price while leaving the fit to European options untouched. None of the
+three is published in the filing, and one of them, correlation, is not even
+named in the lists of principal valuation inputs that two of these issuers
+print.
+
+\subsection*{What this paper contributes, and how much}
+
+Two things, both narrower than the subject they sit in.
+
+The first is a verification exercise on the product class the nearest published
+work set aside. \citet{Bauer2020} reproduce issuer-disclosed values for German
+retail certificates and leave autocallables to later work; this paper prices
+six of them from public inputs and reports the funding-spread inversion as a
+diagnostic, which converts an unexplained difference into a statement about
+what the difference cannot be. The result is a case study on six notes from one
+week, not an estimate of anything about the market. Whether these gaps are
+typical is unknown, and nothing here should be read as suggesting they are.
+
+The second is a census of what the exercise can reach at all. Of 1{,}086
+supplements filed on Form 424B2 in the sample week, 129 are final worst-of
+notes with a contingent coupon and a disclosed estimated value, and 71 of those
+can be priced from public option quotes. A reader checking this disclosure can
+therefore reach 55 per cent of the qualifying market, and the inaccessible
+remainder is not a random sample of it: 33 of the 42 notes excluded for
+unlisted options reference a single US sector index that has no options market
+of its own. That bound is a fact about the disclosure regime rather than about
+any issuer, and it would hold for any outside party attempting the same check.
+
+\subsection*{What would settle it}
+
+None of the three surviving candidates requires access to an issuer's models to
+test. Two of them, though, are not cleanly separable from each other, which
+shapes the order the tests should be run in.
+
+Correlation could be tested directly with dispersion trade data or with quotes
+on multi-asset structures from which an implied correlation can be backed out.
+If dealer correlation marks on these underlyings sit 0.15 to 0.27 above the
+realised estimate over the relevant horizon, correlation is sufficient on its
+own and the question becomes how much of the gap it takes. If they sit much
+closer, it is not.
+
+The surface dynamics could be tested by repricing the same six notes under a
+stochastic-local volatility model calibrated to the same quotes. The
+single-asset version of that test has been run: \citet{Farkas2022} find a
+Heston local-stochastic volatility model prices autocallables above local
+volatility, with the stochastic parameters moving the price while the European
+fit is untouched. What is missing is the multi-asset case, where
+\citet{DeCol2017} find the correlations between stochastic variances to be
+central, and where the dynamics candidate and the correlation candidate stop
+being separable. Running it on these six notes would show whether the residual
+reported here survives a model that can see the dimension this one cannot.
+
+The sample is the third thing to extend, and the cheapest. The 129 final
+supplements identified for one week would support a cross-sectional analysis of
+the disclosed margin against tenor, coupon, barrier distance and the number of
+underlyings, and the screening code that produced them runs forward on any
+later week. Whether the pattern reported here survives contact with a hundred
+notes rather than six is the question this paper cannot answer and the one most
+worth asking next.

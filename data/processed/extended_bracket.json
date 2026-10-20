@@ -1,0 +1,64 @@
+{
+ "notes": [
+  {
+   "note_id": "N4",
+   "disclosed_estimated_value": 999.0,
+   "paths": 200000,
+   "seed": 20261009,
+   "headline_bracket_bp": [
+    -300.0,
+    1500.0
+   ],
+   "curve": [
+    {
+     "spread_bp": -900.0,
+     "value": 1024.5847588796198
+    },
+    {
+     "spread_bp": -800.0,
+     "value": 1020.6047585887981
+    },
+    {
+     "spread_bp": -700.0,
+     "value": 1016.7149262486041
+    },
+    {
+     "spread_bp": -600.0,
+     "value": 1012.548936579681
+    },
+    {
+     "spread_bp": -500.0,
+     "value": 1008.2112397097468
+    },
+    {
+     "spread_bp": -400.0,
+     "value": 1003.5077604440052
+    },
+    {
+     "spread_bp": -350.0,
+     "value": 1000.9296405417396
+    },
+    {
+     "spread_bp": -300.0,
+     "value": 998.3298786490456
+    },
+    {
+     "spread_bp": -200.0,
+     "value": 992.7511451234666
+    },
+    {
+     "spread_bp": -100.0,
+     "value": 986.6383324646392
+    },
+    {
+     "spread_bp": 0.0,
+     "value": 979.839711380433
+    }
+   ],
+   "monotone_decreasing": true,
+   "crossing_bp": -311.0663480619287,
+   "reached_within_extended_grid": true,
+   "crossing_is_outside_headline_bracket": true
+  }
+ ]
+}

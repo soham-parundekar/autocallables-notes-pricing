@@ -317,8 +317,48 @@ def figures(notes: dict, meta: dict, root: Path) -> dict[str, str]:
     _add_proxy_figures(out, root)
     _add_timing_figures(out, notes)
     _add_coverage_figures(out, root, notes, coverage, excluded)
+    _add_extended_bracket_figures(out, root)
 
     return {k: str(v) for k, v in out.items()}
+
+
+def _add_extended_bracket_figures(out: dict, root: Path) -> None:
+    """Where a note with no solution in the headline bracket does cross.
+
+    The headline inversion searches spreads any defensible funding assumption
+    lives in. Reporting "no solution there" as "unreachable at any funding
+    rate" is a stronger claim and a different one, and the curve does not
+    support it: the value is monotone in the spread and keeps rising below the
+    bracket. The crossing point is the honest version of the finding, and it
+    says more than impossibility would, because it puts a number on how far
+    outside plausibility the disclosed value sits.
+    """
+    path = root / "data/processed/extended_bracket.json"
+    if not path.exists():
+        out["extended_bracket_available"] = "no"
+        return
+    payload = json.loads(path.read_text())
+    rows = payload.get("notes", [])
+    if not rows:
+        out["extended_bracket_available"] = "no"
+        return
+
+    out["extended_bracket_available"] = "yes"
+    for row in rows:
+        note_id = row["note_id"]
+        out[f"extended_monotone_{note_id}"] = "yes" if row["monotone_decreasing"] else "NO"
+        low, high = row["headline_bracket_bp"]
+        out[f"headline_bracket_low_bp_{note_id}"] = f"{low:+,.0f}"
+        out[f"headline_bracket_high_bp_{note_id}"] = f"{high:+,.0f}"
+        if row.get("crossing_bp") is None:
+            out[f"crossing_{note_id}"] = "no crossing even on the extended grid"
+            continue
+        crossing = float(row["crossing_bp"])
+        out[f"crossing_bp_{note_id}"] = f"{crossing:+,.0f}"
+        out[f"crossing_outside_headline_{note_id}"] = (
+            "yes" if row.get("crossing_is_outside_headline_bracket") else "no"
+        )
+        out[f"crossing_margin_bp_{note_id}"] = f"{abs(crossing - low):,.0f}"
 
 
 def _add_coverage_figures(out: dict, root: Path, notes: dict,

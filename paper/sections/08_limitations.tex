@@ -1,0 +1,90 @@
+\section{Limitations}\label{sec:limits}
+% Objective: Surface two days late; realised not implied correlation; Treasury not OIS; barrier coverage; local volatility's forward skew; six notes.
+
+\subsection{Inputs that are not what a desk would use}
+
+The volatility surface is observed two trading days after five of the six notes
+priced, which is a consequence of the filing window in \S\ref{sec:data} rather
+than a choice. \S\ref{sec:inputs} measures the cost of that gap, note by note,
+and it runs the wrong way to help: correcting for it lowers values further.
+
+Correlation is realised rather than implied, for the reason given in
+\S\ref{sec:method}: vanilla options carry no co-movement information and no free
+source of implied correlation exists. The bias runs in a known direction, and
+\S\ref{sec:inputs} treats it as one of the surviving candidates rather than
+burying it here.
+
+Discounting uses the Treasury par yield curve where a dealer would use SOFR
+OIS, again because no free source of OIS quotes exists. The two differ by a
+handful of basis points at these tenors. That is small against funding spreads
+measured in the hundreds, and it is not nothing.
+
+\subsection{The Dow leg, and what the coverage test does not promise}
+
+One leg is priced off fund options standing in for an index
+(\S\ref{sec:data}). Two problems follow, and the second is worse than the
+first. The level bias is measured at 0.52 volatility points and is worth \$2.61
+on the affected note. The more serious problem is that the fund's long-dated
+quotes never reach the strike where that note's barrier sits, so for the whole
+of its life past the first year the downside is priced off an extrapolation
+rather than a quote. That note is reported throughout and excluded from every
+quoted range, and its \$0.37 standard error understates its true uncertainty by
+an amount this study cannot quantify.
+
+The coverage test that produced that exclusion is a threshold, not a guarantee.
+It asks whether a quoted strike exists at or below the trigger on fitted slices
+past one year, and a thin market can satisfy it on a single strike while still
+pricing the barrier off very little. The other five notes reference index
+options deep enough that this is unlikely. Nothing here rules it out.
+Appendix~\ref{app:coverage} gives the counts leg by leg so a reader can apply a
+stricter threshold.
+
+\subsection{What local volatility does not do}
+
+The engine is calibrated to European option prices and reproduces them, within
+the bounds \S\ref{sec:validation} reports. These notes are path-dependent, and
+nothing in that validation establishes that local volatility prices the path
+dependence correctly. It establishes that the terminal distributions are
+right.
+
+This is the model's known weakness rather than an incidental one. Local
+volatility reproduces today's surface exactly and misgoverns how that surface
+evolves, flattening forward skew in a way that stochastic and stochastic-local
+volatility models are built to repair \citep{Qu2016}. It remains market
+practice for exotics of this shape because it handles multi-dimensionality,
+where stochastic volatility models become expensive to calibrate across several
+correlated underlyings \citep{Grzelak2019}. For a worst-of autocallable, whose
+value depends on the joint distribution at every observation date and not only
+at maturity, the dynamics are a real exposure.
+
+The flat-volatility comparison in \S\ref{sec:inputs} bounds how much the
+\emph{shape} of the surface matters. It does not bound how much the dynamics of
+that shape matter, and no result in this paper does. What can be said is that
+the direction is not unknown: \citet{Farkas2022} report that a Heston
+local-stochastic volatility model prices autocallables above local volatility,
+with the stochastic parameters moving the autocallable price while the fit to
+European options is unchanged. Their products are single-asset. Whether the
+same holds for a worst-of on three underlyings, where \citet{DeCol2017} find
+the correlations between stochastic variances to be central, is not something
+this paper establishes.
+
+\subsection{Exercise, precision and sample}
+
+The issuer's call is solved under optimal exercise, and Longstaff--Schwartz
+with a finite basis returns a policy that is suboptimal to some degree. That
+error biases the investor's value upward relative to true optimality, so it
+pushes the model value toward the disclosed figure and cannot account for a
+model that is already too low. The direction is favourable to the finding,
+which is worth stating explicitly rather than leaving as an unexamined
+approximation.
+
+One issuer discloses its estimated value to the nearest dollar rather than the
+cent, so the comparison for that note carries a dollar of irreducible
+disclosure precision against a gap of \$19.16. It does not affect the sign of
+anything reported.
+
+Six notes, four issuers, one pricing week. Every number here is a case study
+and none is an estimate of a population parameter. The 129 final supplements
+identified for that week would support a cross-sectional analysis of the
+disclosed margin against tenor, coupon, barrier distance and the number of
+underlyings. That is left undone, and it is the obvious next thing to do.

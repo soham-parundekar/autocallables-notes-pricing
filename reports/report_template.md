@@ -55,8 +55,12 @@ call is exercised rationally, lowering the discount rate makes the note more
 valuable to hold, so the issuer calls it sooner, which caps the value near par
 at every spread. Across the whole search bracket the model runs from
 ${{unreachable_low_value}} down to ${{unreachable_high_value}} and never reaches
-the disclosed ${{unreachable_target}}. That disclosed value is unreachable at
-any funding rate if the call it describes is exercised rationally.
+the disclosed ${{unreachable_target}}. Extending the search below that bracket
+locates the crossing at {{crossing_bp_N4}} bp: the disclosed value is
+reproducible only if the issuer discounts its own liability more than three
+percentage points *below* Treasuries. That is a number rather than an
+impossibility, and it is the stronger statement of the two, because it says how
+far outside any defensible funding assumption the disclosed value sits.
 
 **Ignore the issuer's call and the picture becomes coherent for most of the
 sample.** Priced as if it ran to maturity, {{no_call_positive_count}} of the
@@ -493,9 +497,14 @@ bond's is. Lowering the rate raises the continuation value, which makes the
 issuer call sooner, which caps what the investor can hold. Across the bracket
 the model moves from ${{unreachable_low_value}} to
 ${{unreachable_high_value}} and never reaches ${{unreachable_target}}, missing
-by ${{unreachable_shortfall}} at its best. Rational exercise caps the note's
-value at approximately par, so a disclosed value a dollar below par is
-incompatible with it at any funding rate.
+by ${{unreachable_shortfall}} at the bottom of the bracket. The value is
+monotone in the spread and still rising there, so the bracket's edge is not a
+ceiling: `src/analysis/extended_bracket.py` continues the curve on the same
+paths and finds the crossing at {{crossing_bp_N4}} bp, only
+{{crossing_margin_bp_N4}} bp below where the headline search stops. Rational
+exercise holds the note near par across every spread a funding assumption could
+plausibly take, which is why the disclosed value needs a deeply negative one to
+be reproduced at all.
 
 Priced as if the call did not exist, {{no_call_positive_notes}} imply
 {{no_call_positive_min_bp}} to {{no_call_positive_max_bp}} bp, which is
@@ -523,10 +532,14 @@ informative than any single figure.
 **{{phi_in_range_notes}} land inside the interval**, at
 {{phi_in_range_detail}}. N3's is the one to look at: its disclosed value of
 ${{disclosed_N3}} sits against a no-call valuation of
-${{no_call_value_N3}} at the A-rated bond spread, ${{residual_abs_N3}} {{residual_side_N3}} it on a $1,000 note. Within simulation noise, Morgan
-Stanley's disclosed value for that note is what the structure is worth if the
-issuer's call is assumed never to be exercised and the funding spread is the
-one its own bonds trade at. For {{unreachable_note}} and N6 the fraction is
+${{no_call_value_N3}} at the A-rated bond spread, ${{residual_abs_N3}}
+{{residual_side_N3}} it on a $1,000 note. Morgan Stanley's disclosed value for
+that note is therefore close to what the structure is worth if the issuer's
+call is assumed never to be exercised and the funding spread is the one its own
+bonds trade at. How close is a question this run cannot answer: the attribution
+was computed on a quarter of the headline path count and its output carries no
+standard error, so the $1,000-scale agreement is reported as measured and not
+characterised as being inside simulation noise. For {{unreachable_note}} and N6 the fraction is
 {{phi_N4}} and {{phi_N6}}, so under a third of the call at most.
 
 **{{phi_below_zero_count}} notes ({{phi_below_zero_notes}}) return a negative

@@ -1,0 +1,204 @@
+\section{Method}\label{sec:method}
+% Objective: Quotes to forwards to SVI under arbitrage constraints, Dupire local volatility, correlated multi-asset simulation, Longstaff-Schwartz for the issuer's call, and the funding-spread inversion.
+
+\subsection{The volatility surface}
+
+Each expiry is fitted separately in total implied variance against
+log-moneyness, $\totvar(\logm) = \sigma_{\mathrm{BS}}^2(\logm)\,T$ with
+$\logm = \ln(K/F_T)$, using the raw SVI parameterisation of
+\citet{GatheralJacquier2014},
+%
+\begin{equation}
+  \totvar(\logm) = a + b\left[\rho\,(\logm - m)
+      + \sqrt{(\logm - m)^2 + s^2}\,\right].
+  \label{eq:svi}
+\end{equation}
+%
+Fitting variance rather than volatility is a choice the next step forces. Local
+volatility needs $\partial\totvar/\partial T$ and
+$\partial^2\totvar/\partial\logm^2$, and \eqref{eq:svi} is twice differentiable
+in $\logm$ in closed form, so those derivatives come off a fitted slice instead
+of off differenced quotes.
+
+Two arbitrage conditions are imposed, both from \citet{GatheralJacquier2014}.
+The risk-neutral density implied by a slice is non-negative exactly when
+%
+\begin{equation}
+  g(\logm) = \left(1 - \frac{\logm\,\totvar'}{2\totvar}\right)^{\!2}
+    - \frac{(\totvar')^2}{4}\left(\frac{1}{\totvar} + \frac14\right)
+    + \frac{\totvar''}{2} \;\geq\; 0
+  \label{eq:butterfly}
+\end{equation}
+%
+everywhere, and total variance must not decrease in $T$ at fixed $\logm$, or a
+calendar spread prices negative. Neither check is cosmetic. A slice violating
+\eqref{eq:butterfly} has negative density somewhere, and the denominator of the
+local-variance expression below passes through zero at that point, which is the
+usual reason a local-volatility surface comes back full of undefined values.
+When a check fails the slice is refitted subject to the constraint rather than
+repaired afterwards, the arbitrage-free parameter domain being characterised by
+\citet{MartiniMingone2022}.
+
+Where the conditions are enforced turns out to matter as much as whether they
+are. Checking on one fixed wide grid asks a two-week slice about strikes far
+below its deepest quote, where it is purely extrapolating, and enforcing the
+calendar condition out there makes each short-dated slice's extrapolated
+wing a floor for the next expiry, so the constraint propagates forward from the
+slice carrying the least information rather than the most. The grid is scoped
+to the strikes each pair of adjacent expiries actually quotes, padded slightly
+and capped at five standard deviations of total volatility. Quotes enter the fit
+only if the expiry is at least a fortnight out and the relative bid-ask is at
+most 0.35, with log-moneyness clipped to $[-0.9, 0.45]$, and consecutive
+expiries closer than 25 days apart are thinned so that the calendar condition
+is tested across separated maturities rather than adjacent weeklies. The
+surfaces retain between 11 and 20 fitted slices each.
+
+\subsection{Local volatility}
+
+The simulation diffusion is Dupire local volatility, taken in Gatheral's
+log-moneyness form,
+%
+\begin{equation}
+  \lv^2(\logm, T) = \frac{\partial\totvar/\partial T}
+    {1 - \dfrac{\logm}{\totvar}\dfrac{\partial\totvar}{\partial\logm}
+      + \dfrac14\left(-\dfrac14 - \dfrac{1}{\totvar}
+        + \dfrac{\logm^2}{\totvar^2}\right)
+        \left(\dfrac{\partial\totvar}{\partial\logm}\right)^{\!2}
+      + \dfrac12\dfrac{\partial^2\totvar}{\partial\logm^2}}.
+  \label{eq:dupire}
+\end{equation}
+%
+Derivatives in $\logm$ are exact. In $T$ the surface is interpolated linearly
+in total variance between adjacent expiries, which makes
+$\partial\totvar/\partial T$ piecewise constant but non-negative, because the
+calendar condition already forced $\totvar$ to be non-decreasing in $T$. The
+butterfly condition keeps the denominator of \eqref{eq:dupire} positive. Local
+variance is therefore positive by construction rather than by inspection, which
+is the reason the two checks in the previous subsection are not optional. The
+implementation still counts how often it has to clamp, so a failure would be
+visible rather than silent.
+
+Past the longest listed expiry the surface must be extrapolated, and for the
+five-year notes that is a long way. Quoted expiries reach 5.20 years on the
+S\&P 500 but stop at 3.20 on the Nasdaq-100 and 2.19 on the Russell 2000, while
+the two longest notes run to 5.00 years. The base case holds implied volatility
+flat in maturity with its smile shape intact,
+$\totvar(\logm,T) = \totvar_{\mathrm{last}}(\logm)\,T/T_{\mathrm{last}}$. Two
+alternatives are implemented so the choice can be measured rather than
+asserted: carrying the last observed variance slope forward, and shifting every
+volatility by a fixed amount. \S\ref{sec:inputs} reports what the choice is
+worth, which ranges from \$0.22 on the shortest note to \$12.36 on the longest.
+
+\subsection{Correlation}
+
+Correlation is estimated from 252 trading days of daily log returns, taken up to
+and including each note's own pricing date rather than the snapshot date. Five
+of the six notes priced two business days before the snapshot, so using
+everything available would feed future returns into a historical pricing
+decision; the effect on the matrix is small and the principle is not. Where the
+sample matrix is not positive semidefinite, the nearest valid correlation matrix
+in the Frobenius norm is substituted by the alternating-projection method of
+\citet{Higham2002}.
+
+This is the largest approximation in the method and it runs in a known
+direction. Vanilla options carry no information about co-movement, and there is
+no free source of implied correlation, so a realised estimate stands in for a
+risk-neutral input. Dealers mark correlation above realised for precisely this
+product, because selling a worst-of leaves the desk short correlation. The
+investor is long correlation on every note in the sample, so if the issuer used
+a higher figure than the one estimated here, its value would exceed this
+paper's for that reason alone. That makes correlation the first candidate
+\S\ref{sec:inputs} has to rule in or out, and the one it treats at most length.
+
+\subsection{Simulation}
+
+Paths are generated by daily log-Euler steps under the risk-neutral measure,
+each asset drifting along its own forward curve so that carry is whatever the
+option market implies rather than a separately assumed dividend yield, and
+diffusing at \eqref{eq:dupire}. Shocks are correlated through the Cholesky
+factor of the correlation matrix. Antithetic variates are used, which help most
+where the payoff is discontinuous, and the reported figures use 200{,}000 paths.
+
+Three implementation choices are worth recording because they decide what is
+computationally possible rather than merely convenient. Paths are not stored: a
+five-year note observed monthly needs 1{,}260 daily steps on three assets, and
+retaining 200{,}000 of them would run to several terabytes, so the engine
+carries only the current level and records at each observation date the
+statistics the payoffs need, which are the worst and best performances across
+underlyings. The American knock-in is handled by a running indicator updated
+every day, since the condition it tests, that an underlying's value falls below
+its threshold ``on any Trading Day during the Knock-In Period,'' cannot be
+evaluated from the observation dates alone. That note's loss condition is a
+conjunction rather than a single test: a knock-in must occur and the least
+performing underlying must also finish below its starting value, not merely
+below the threshold that triggered the knock-in. Local volatility is read from a precomputed grid in
+$(\logm, T)$ with bilinear interpolation rather than evaluated analytically at
+every step, which reproduces the surface to well under a basis point of
+volatility and is what makes bump-and-revalue Greeks affordable. Common random
+numbers come from re-seeding rather than from stored draws, so a bumped
+revaluation differs from the base case only in the bumped input and each Greek
+is a clean finite difference.
+
+A European control variate is applied, with the variance reduction factor
+running from 1.8 to 3.8 across the six notes. Standard errors on the reported
+values fall between \$0.24 and \$0.37 per \$1{,}000.
+
+\subsection{The issuer's call}
+
+The Bermudan call is solved by least-squares Monte Carlo
+\citep{LongstaffSchwartz2001}. Treating an issuer's early-redemption right as
+an optimal-stopping problem rather than as a barrier test has published
+precedent in this product family: \citet{Detemple2021} solve for the optimal
+policy explicitly on callable barrier reverse convertibles, and
+\citet{Huo2025} applies least-squares Monte Carlo to worst-of issuer-callable
+notes of the kind priced here, under a multi-variate local-volatility model and
+with the stopping problem posed from the issuer's side. One sign convention has
+to be stated plainly, because reversing it would change every result. A high continuation
+value is the issuer's liability, not its asset. The issuer therefore redeems
+when keeping the note alive costs it more than repaying principal now, so the
+investor's value at a call date is the redemption amount whenever the estimated
+continuation value exceeds it. Solved the other way the issuer's option becomes
+a gift to the investor and every price rises.
+
+The regression basis is deliberately small: a constant, the worst performance
+$\worst$, its square, the spread between best and worst performance, and
+accrued-but-unpaid coupon. The worst performer is the state variable that drives
+the payoff, and its square lets the exercise boundary curve; the best-worst
+spread carries the dispersion a worst-of note is exposed to; accrued coupon
+matters only where the note has a memory feature. A richer basis fits
+simulation noise and estimates a worse boundary rather than a better one.
+
+One detail of the comparison is easy to get wrong in the direction the term
+sheets invite. A coupon due on a call date is paid whether or not the note is
+redeemed, so it cancels from the decision and the continuation value is
+compared against par alone. Term sheets quote the redemption as par plus
+coupon, and carrying that wording into the comparison makes calling look about
+one coupon more expensive than it is, which systematically under-calls and
+overvalues the note.
+
+\subsection{The funding-spread inversion}
+
+The gap between a model value and the disclosed value can be expressed as the
+discount-rate adjustment that would remove it. For a constant spread $\spread$
+over the Treasury zero curve,
+%
+\begin{equation}
+  V(\spread) = \E^{\mathbb{Q}}\!\left[\;\sum_i
+    e^{-(r_{t_i} + \spread)\,t_i}\, \mathrm{CF}_i \right],
+  \qquad
+  \text{solve } V(\spread^\ast) = \mathrm{EV}_{\text{disclosed}} .
+  \label{eq:inversion}
+\end{equation}
+%
+The spread enters the exercise policy as well as the discounting, so
+\eqref{eq:inversion} is solved by repricing on a fixed set of paths rather than
+by rescaling a single valuation. $V$ is monotone decreasing in $\spread$, so the
+root is bracketed and found by Brent's method.
+
+What makes $\spread^\ast$ informative is that its sign is known in advance.
+Discounting a liability at a wider spread lowers its value, and an issuer funds
+above Treasuries, so a disclosed value derived with the issuer's own funding
+rate should reconcile at a positive $\spread^\ast$. A negative solution cannot
+be a funding spread. Because the issuer's call is the largest discretionary
+input in the model, \eqref{eq:inversion} is solved under two assumptions about
+it, optimal exercise and no early call, and \S\ref{sec:results} reports both.

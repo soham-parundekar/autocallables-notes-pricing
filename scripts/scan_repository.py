@@ -36,9 +36,12 @@ import re
 from pathlib import Path
 
 SKIP_DIRS = {".git", "__pycache__", ".pytest_cache", ".ipynb_checkpoints",
-             "edgar_cache", ".venv", "venv"}
+             "edgar_cache", ".venv", "venv", ".bibcache"}
+# .tex and .cls joined this set when the manuscript moved into the repository.
+# Leaving them out meant the scan passed over every word of the paper while
+# reporting the repository clean, which is worse than not running it.
 TEXT_SUFFIXES = {".py", ".md", ".yaml", ".yml", ".txt", ".bib", ".csv", ".ipynb",
-                 ".toml", ".cfg", ".in"}
+                 ".toml", ".cfg", ".in", ".tex", ".cls", ".sty"}
 
 SECRET_PATTERNS = [
     (r"AKIA[0-9A-Z]{16}", "AWS access key"),
@@ -62,6 +65,18 @@ ALLOWED_VOCABULARY = {
     # the issuer's own wording, quoted from the Morgan Stanley supplement.
     ("", "calculation agent", "the term sheet's name for the party that computes payoffs"),
     ("scan_repository.py", "", "this scanner names the terms it looks for"),
+    # The manuscript carries a generative-AI-use declaration, in the same form
+    # and the same position as the author's previous paper. Disclosing tool use
+    # is the honest choice for an academic venue, and it is the one place in the
+    # repository where this vocabulary is intended rather than accidental.
+    ("declarations.tex", "declaration of generative ai use", "the manuscript's required disclosure"),
+    # The disclosure has to name the tool to be a disclosure at all. The
+    # exception is written as the whole clause rather than the bare product name
+    # so that the word appearing anywhere else in the manuscript still fails.
+    ("declarations.tex", "the author used claude", "the disclosure names the tool it discloses"),
+    ("main.tex", "declaration of generative ai use", "the manuscript's required disclosure"),
+    ("main.tex", "generative-ai-use declaration", "comment describing that disclosure"),
+    ("declarations.tex", "generative-ai-use declaration", "comment describing that disclosure"),
 }
 
 VOCABULARY = [
